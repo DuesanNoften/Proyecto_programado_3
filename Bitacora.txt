@@ -1,0 +1,9 @@
+Cosas por Hacer:
+-Hacer la maquina de consejos
+-Hacer la animación de impresion
+-Hacer animacion vuelto
+-Conseguir Dichos
+-Conseguir Consejos
+
+4-8-2020:
+Conversacion sobre el diseño de la interfaz y funcionamiento del programa
