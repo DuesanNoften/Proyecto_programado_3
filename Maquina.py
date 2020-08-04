@@ -24,8 +24,10 @@ while running:
     espacio_monedas.fill((189,189,189))
     espacio_monedas_rect = espacio_monedas.get_rect()
     espacio_monedas_rect.topleft = (10,10)
-    
-    #Creando linea de comandos
+    pygame.draw.circle(espacio_monedas,(224,224,224),(75,60),50,0)
+    pygame.draw.rect(espacio_monedas,(0,0,0),(70,15,10,90))
+        
+    #Creando Impresora
     impresora = pygame.Surface((300,170))
     impresora.fill((189,189,189))
     impresora_rect = impresora.get_rect()
