@@ -1,4 +1,5 @@
-import pygame 
+import pygame
+from Menu_class import *
 
 pygame.init()
 #Iniciando clock
@@ -14,7 +15,7 @@ pygame.display.set_caption("Advice Machine")
 #R: -
 def crear_texto(texto, tipo_font, color,tamano,posicion,posicion_rect,superficie):
     font = pygame.font.SysFont(tipo_font,tamano)
-    impresion = font.render(texto, False, color)
+    impresion = font.render(texto, True, color)
     impresion_rect = impresion.get_rect()
     if posicion_rect.upper() == "CENTRO":
         impresion_rect.midtop = posicion
@@ -29,6 +30,17 @@ consola_font = "lucidaconsole"
 
 #Advice Machine
 running = True
+
+#Iniciando comandos
+lista_comandos = [Menu("Sistema",["Reset","Mostrar Ventas"]),
+                  Menu("Idioma",["Español","Ingles"]),
+                  Menu("Mensaje",["Consejo","Chiste","Dicho"])]
+
+seleccionando = False
+comando_actual = 1
+estado_actual = 0
+
+print(lista_comandos[comando_actual].get_estado(estado_actual))
 
 while running:
 
@@ -48,18 +60,17 @@ while running:
     pygame.draw.circle(espacio_monedas,(224,224,224),(75,60),50,0)
     pygame.draw.rect(espacio_monedas,(0,0,0),(70,15,10,90))
 
-    
-        
     #Creando Impresora
     impresora = pygame.Surface((300,170))
     impresora.fill((189,189,189))
     impresora_rect = impresora.get_rect()
     impresora_rect.topleft = (170,100)
+    
     #Creando Ranura de impresión
     pygame.draw.rect(impresora,(0,0,0),(20,35,260,25))
 
     #Creando ranura de vueltos
-    pygame.draw.rect(impresora,(66,66,66),(20,100,260,65))
+    pygame.draw.rect(espacio_monedas,(66,66,66),(5,120,140,130))
 
     #Creando linea de comandos
     comandos = pygame.Surface((280,80))
@@ -79,7 +90,16 @@ while running:
     boton1_rect.topleft = (455,55)
 
     #Colocando Texto
-    crear_texto("Hola",consola_font,(255,255,255),25,(5,5)," ",comandos)
+    crear_texto(lista_comandos[comando_actual].get_nombre(),
+                consola_font,
+                (255,255,255),
+                28,(5,5),
+                " ",comandos)
+    crear_texto(lista_comandos[comando_actual].get_estado(estado_actual),
+                consola_font,
+                (255,255,255),
+                28,(5,45),
+                " ",comandos)
 
     #Poniendo en pantalla
     contenedor.blit(boton1,boton1_rect)
@@ -93,7 +113,32 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-            
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            mouse_pos = pygame.mouse.get_pos()
+            #print(estado_actual,comando_actual)
+            if boton1_rect.collidepoint(mouse_pos):
+                if seleccionando == False:
+                    seleccionando = True
+                    estado_tmp = estado_actual
+                    estado_actual = 0
+                    lista_comandos[comando_actual].transicion1()
+                    break
+                else:
+                    seleccionando = False
+                    estado_actual = 0
+                    lista_comandos[comando_actual].reset()
+                    comando_actual += 1
+                    break
+            if boton0_rect.collidepoint(mouse_pos):
+                if seleccionando == False:
+                    comando_actual -= 1
+                    break
+                else:
+                    seleccionando = False
+                    estado_actual = estado_tmp + 1
+                    lista_comandos[comando_actual].reset()
+                    break
+              
     pygame.display.update()
     clock.tick(60)
     

@@ -12,6 +12,7 @@ de la maquina de consejos. (45 minutos hablando del diseño y 2 horas y media en
 
 6-8-2020:
 Creacion de la funcion para colocar texto (30 minutos).
+Primera version de navegar en la linea de comandos(1 hora).
 Agregar carpetas esp y eng que referencian al idioma
 Agregar dos rectangulos a la maquina para simular la ranura de salida y la ranura de vueltos.(1 hora)
 
