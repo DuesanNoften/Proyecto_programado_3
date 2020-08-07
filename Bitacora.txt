@@ -6,4 +6,8 @@ Cosas por Hacer:
 -Conseguir Consejos
 
 4-8-2020:
-Conversacion sobre el diseño de la interfaz y funcionamiento del programa
+Conversacion sobre el diseño de la interfaz y funcionamiento del programa. Se consiguieron los chistes y dichos para la base de datos y se hizo la primera version
+de la maquina de consejos. (30 minutos hablando del diseño y 2 horas y media en la busqueda y pogramacion)
+
+6-8-2020:
+Creacion de la funcion para colocar texto (30 minutos)

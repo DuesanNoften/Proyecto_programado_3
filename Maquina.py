@@ -1,10 +1,31 @@
 import pygame 
 
 pygame.init()
+#Iniciando clock
+clock = pygame.time.Clock()
 
 #Iniciando pantalla
 pantalla = pygame.display.set_mode((500,300))
 pygame.display.set_caption("Advice Machine")
+
+#crear_texto
+#E: texto, font, color, tamaño, posicion,posicion de rectangulo de referencia,superficie
+#S: Se imprime el texto en la superficie con el font, color, tamaño y posicion
+#R: -
+def crear_texto(texto, tipo_font, color,tamano,posicion,posicion_rect,superficie):
+    font = pygame.font.SysFont(tipo_font,tamano)
+    impresion = font.render(texto, False, color)
+    impresion_rect = impresion.get_rect()
+    if posicion_rect.upper() == "CENTRO":
+        impresion_rect.midtop = posicion
+    elif posicion_rect.upper() == "DERECHA":
+        impresion_rect.topright = posicion
+    else:
+        impresion_rect.topleft = posicion
+    superficie.blit(impresion,impresion_rect)
+
+#Iniciando font de consola
+consola_font = "lucidaconsole"
 
 #Advice Machine
 running = True
@@ -50,6 +71,9 @@ while running:
     boton1_rect = comandos.get_rect()
     boton1_rect.topleft = (455,55)
 
+    #Colocando Texto
+    crear_texto("Hola",consola_font,(255,255,255),25,(5,5)," ",comandos)
+
     #Poniendo en pantalla
     contenedor.blit(boton1,boton1_rect)
     contenedor.blit(boton0,boton0_rect)
@@ -58,10 +82,12 @@ while running:
     contenedor.blit(espacio_monedas,espacio_monedas_rect)
     pantalla.blit(contenedor,contenedor_rect)
 
+    
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
             
     pygame.display.update()
+    clock.tick(60)
     
 pygame.display.quit()
