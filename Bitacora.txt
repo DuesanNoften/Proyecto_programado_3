@@ -8,3 +8,7 @@ Cosas por Hacer:
 4-8-2020 2h 45min:
 Conversacion sobre el diseño de la interfaz y funcionamiento del programa
 Busqueda de los dichos, chistes y consejos
+
+6-8-2020 1h:
+Agregar carpetas esp y eng que referencian al idioma
+Agregar dos rectangulos a la maquina para simular la ranura de salida y la ranura de vueltos.
