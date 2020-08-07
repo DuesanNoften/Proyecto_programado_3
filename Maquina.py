@@ -40,6 +40,11 @@ seleccionando = False
 comando_actual = 1
 estado_actual = 0
 
+def prueba():
+    print("Hola")
+
+lista_comandos[comando_actual].get_estado(estado_actual).set_funcionalidad(prueba)
+
 print(lista_comandos[comando_actual].get_estado(estado_actual))
 
 while running:
@@ -95,7 +100,8 @@ while running:
                 (255,255,255),
                 28,(5,5),
                 " ",comandos)
-    crear_texto(lista_comandos[comando_actual].get_estado(estado_actual),
+    
+    crear_texto(lista_comandos[comando_actual].get_estado(estado_actual).get_nombre(),
                 consola_font,
                 (255,255,255),
                 28,(5,45),
@@ -115,27 +121,38 @@ while running:
             running = False
         if event.type == pygame.MOUSEBUTTONDOWN:
             mouse_pos = pygame.mouse.get_pos()
-            #print(estado_actual,comando_actual)
             if boton1_rect.collidepoint(mouse_pos):
                 if seleccionando == False:
                     seleccionando = True
                     estado_tmp = estado_actual
                     estado_actual = 0
                     lista_comandos[comando_actual].transicion1()
+                    #print(lista_comandos[comando_actual].get_estado(estado_actual))
                     break
                 else:
                     seleccionando = False
                     estado_actual = 0
                     lista_comandos[comando_actual].reset()
-                    comando_actual += 1
+                    funcion =  lista_comandos[comando_actual].get_estado(estado_tmp).funcionalidad
+                    if funcion != None:
+                        funcion()
+                    if comando_actual != len(lista_comandos)-1:
+                        comando_actual += 1
                     break
             if boton0_rect.collidepoint(mouse_pos):
                 if seleccionando == False:
-                    comando_actual -= 1
+                    if comando_actual > 0:
+                        comando_actual -= 1
+                    else:
+                        comando_actual += 1
                     break
                 else:
                     seleccionando = False
-                    estado_actual = estado_tmp + 1
+                    valor = len(lista_comandos[comando_actual].get_tmp()[1])
+                    if estado_tmp == valor-1:
+                        estado_actual = 0
+                    else:
+                        estado_actual = estado_tmp + 1
                     lista_comandos[comando_actual].reset()
                     break
               
