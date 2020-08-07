@@ -5,9 +5,13 @@ Cosas por Hacer:
 -Conseguir Dichos
 -Conseguir Consejos
 
+<<<<<<< HEAD
 4-8-2020:
 Conversacion sobre el diseño de la interfaz y funcionamiento del programa. Se consiguieron los chistes y dichos para la base de datos y se hizo la primera version
-de la maquina de consejos. (30 minutos hablando del diseño y 2 horas y media en la busqueda y pogramacion)
+de la maquina de consejos. (45 minutos hablando del diseño y 2 horas y media en la busqueda y pogramacion)
 
 6-8-2020:
-Creacion de la funcion para colocar texto (30 minutos)
+Creacion de la funcion para colocar texto (30 minutos).
+Agregar carpetas esp y eng que referencian al idioma
+Agregar dos rectangulos a la maquina para simular la ranura de salida y la ranura de vueltos.(1 hora)
+
