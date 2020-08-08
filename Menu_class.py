@@ -25,13 +25,23 @@ class Menu():
     def get_estado(self,indice):
         return self.estados[indice]
 
+    def buscar_estado(self,nombre):
+        for estado in self.estados:
+            if nombre == estado.get_nombre():
+                return estado
+
     def set_estado(self,indice,nuevo_estado):
-        self.estado[indice] = nuevo_estado
+        self.estados[indice] = Estado(nuevo_estado)
 
     def transicion1(self):
         self.tmp = [self.nombre,self.estados]
         self.nombre = "Cambiar"
         self.estados = [Estado("Seleccionar")]
+
+    def transicion2(self):
+        self.tmp = [self.nombre,self.estados]
+        self.nombre = "Change"
+        self.estados = [Estado("Select")]
 
     def reset(self):
         self.nombre,self.estados = self.tmp
