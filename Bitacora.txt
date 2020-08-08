@@ -18,4 +18,5 @@ Agregar dos rectangulos a la maquina para simular la ranura de salida y la ranur
 
 7-8-2020:
 Creacion de la nueva clase Estados y cambios en la navegacion de los comandos(1 hora)
+Creación de las tablas de almacenaje de información
 
