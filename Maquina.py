@@ -2,6 +2,7 @@ import pygame
 from Menu_class import *
 
 pygame.init()
+
 #Iniciando clock
 clock = pygame.time.Clock()
 
@@ -27,25 +28,99 @@ def crear_texto(texto, tipo_font, color,tamano,posicion,posicion_rect,superficie
 
 #Iniciando font de consola
 consola_font = "lucidaconsole"
-
+    
 #Advice Machine
 running = True
 
+#Iniciando Idioma 
+idioma = 'esp'
+
 #Iniciando comandos
-lista_comandos = [Menu("Sistema",["Reset","Mostrar Ventas"]),
-                  Menu("Idioma",["Español","Ingles"]),
+lista_comandos = [Menu("Administracion",["Ctrñ:","Resetear","Reporte","Apagar"]),
+                  Menu("Idioma",["Español","English"]),
                   Menu("Mensaje",["Consejo","Chiste","Dicho"])]
 
 seleccionando = False
 comando_actual = 1
 estado_actual = 0
 
-def prueba():
-    print("Hola")
-
-lista_comandos[comando_actual].get_estado(estado_actual).set_funcionalidad(prueba)
-
-print(lista_comandos[comando_actual].get_estado(estado_actual))
+#Funcionalidades
+#apagar():para el ciclo
+def apagar():
+    global running
+    running= False
+#traducir_ingles(): cambia a lenguaje de los comandos a ingles
+def traducir_ingles():
+    global lista_comandos
+    global idioma
+    idioma = 'ing'
+    lista_comandos = [Menu("Administration",["Pswd:","Reset","Report","Shut Down"]),
+                      Menu("Language",["Español","English"]),
+                      Menu("Message",["Advice","Joke","Saying"])]
+    lista_comandos[0].buscar_estado("Shut Down").set_funcionalidad(apagar)
+    lista_comandos[1].buscar_estado("Español").set_funcionalidad(traducir_espanol)
+    lista_comandos[1].buscar_estado("English").set_funcionalidad(traducir_ingles)
+    lista_comandos[0].buscar_estado("Pswd:").set_funcionalidad(contrasena)
+#traducir_espanol(): cambia a lenguaje de los comandos a espanol
+def traducir_espanol():
+    global lista_comandos
+    global idioma
+    idioma = 'esp'
+    lista_comandos = [Menu("Administracion",["Ctrñ:","Resetear","Reporte","Apagar"]),
+                  Menu("Idioma",["Español","English"]),
+                  Menu("Mensaje",["Consejo","Chiste","Dicho"])]
+    lista_comandos[0].buscar_estado("Apagar").set_funcionalidad(apagar)
+    lista_comandos[1].buscar_estado("Español").set_funcionalidad(traducir_espanol)
+    lista_comandos[1].buscar_estado("English").set_funcionalidad(traducir_ingles)
+    lista_comandos[0].buscar_estado("Ctrñ:").set_funcionalidad(contrasena)
+#contrasena():
+#E: lista de rectangulos
+#S: Recibe contraseña por medio de colisiones con los rectangulos con el mouse y retorna un bool
+#R: -
+def contrasena(recs,menu,estado):
+    tmp = menu.get_estado(estado).get_nombre()
+    ctrn_surface = pygame.Surface((275,75))
+    ctrn_surface.fill((33,150,243))
+    ctrn_rect = ctrn_surface.get_rect()
+    ctrn_rect.topleft=(5,5)
+    ctrn = ''
+    correcta = False
+    menu.set_estado(estado,menu.get_estado(estado).get_nombre()+ctrn)
+    while len(ctrn) <= 5 and correcta == False:
+        crear_texto(menu.get_estado(estado).get_nombre(),consola_font,(255,255,255),28,(1,1)," ",ctrn_surface)
+        comandos.blit(ctrn_surface,ctrn_rect)
+        contenedor.blit(comandos,comandos_rect)
+        pantalla.blit(contenedor,contenedor_rect)
+        
+        for event in pygame.event.get():
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                mouse_pos = pygame.mouse.get_pos()
+                if recs[0].collidepoint(mouse_pos):
+                    ctrn += '1'
+                    menu.set_estado(estado,tmp+ctrn)
+                    break
+                if recs[1].collidepoint(mouse_pos):
+                    ctrn += '0'
+                    menu.set_estado(estado,tmp+ctrn)
+                    break
+                
+        if ctrn == '10110':
+            correcta = True
+            
+        pygame.display.update()
+        clock.tick(60)
+        
+    menu.set_estado(estado,tmp)
+    lista_comandos[0].buscar_estado(tmp).set_funcionalidad(contrasena)
+    ctrn_surface.fill((33,150,243))
+    comandos.blit(ctrn_surface,ctrn_rect)
+    return correcta
+                
+#Asignando funcionalidades
+lista_comandos[0].buscar_estado("Ctrñ:").set_funcionalidad(contrasena)
+lista_comandos[0].buscar_estado("Apagar").set_funcionalidad(apagar)
+lista_comandos[1].buscar_estado("Español").set_funcionalidad(traducir_espanol)
+lista_comandos[1].buscar_estado("English").set_funcionalidad(traducir_ingles)
 
 while running:
 
@@ -126,18 +201,30 @@ while running:
                     seleccionando = True
                     estado_tmp = estado_actual
                     estado_actual = 0
-                    lista_comandos[comando_actual].transicion1()
-                    #print(lista_comandos[comando_actual].get_estado(estado_actual))
+                    if idioma == 'esp':
+                        lista_comandos[comando_actual].transicion1()
+                    else:
+                        lista_comandos[comando_actual].transicion2()
                     break
                 else:
                     seleccionando = False
                     estado_actual = 0
                     lista_comandos[comando_actual].reset()
-                    funcion =  lista_comandos[comando_actual].get_estado(estado_tmp).funcionalidad
-                    if funcion != None:
+                    funcion = lista_comandos[comando_actual].get_estado(estado_tmp).funcionalidad
+                    nombre_estado = lista_comandos[comando_actual].get_estado(estado_tmp).get_nombre()
+                    if nombre_estado == "Ctrñ:" or nombre_estado == "Pswd:":
+                        print(type(funcion))
+                        valor = funcion([boton1_rect,
+                                         boton0_rect],
+                                        lista_comandos[comando_actual],
+                                        estado_tmp)
+                        if valor:
+                            estado_actual += 1
+                            break
+                    elif funcion != None:
                         funcion()
                     if comando_actual != len(lista_comandos)-1:
-                        comando_actual += 1
+                           comando_actual += 1
                     break
             if boton0_rect.collidepoint(mouse_pos):
                 if seleccionando == False:
@@ -145,15 +232,21 @@ while running:
                         comando_actual -= 1
                     else:
                         comando_actual += 1
+                    estado_actual = 0
                     break
                 else:
                     seleccionando = False
                     valor = len(lista_comandos[comando_actual].get_tmp()[1])
-                    if estado_tmp == valor-1:
-                        estado_actual = 0
-                    else:
-                        estado_actual = estado_tmp + 1
                     lista_comandos[comando_actual].reset()
+                    funcion = lista_comandos[comando_actual].get_estado(estado_tmp).funcionalidad
+                    nombre_estado = lista_comandos[comando_actual].get_estado(estado_tmp).get_nombre()
+                    if nombre_estado == "Ctrñ:" or nombre_estado == "Pswd:":
+                        pass
+                    else:
+                        if estado_tmp == valor-1:
+                            estado_actual = 0
+                        else:
+                            estado_actual = estado_tmp + 1
                     break
               
     pygame.display.update()
