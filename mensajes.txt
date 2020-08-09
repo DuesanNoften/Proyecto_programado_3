@@ -1,13 +1,13 @@
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 Tipo	Codigo	Mensaje						Precio	Ventas	Imagen
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
- 1	 1      Indirecta					50	0	esp/Imagenes/Chistes/chistes1.jpg
+ 1	 1	Indirecta					50	0	esp/Imagenes/Chistes/chistes1.jpg
  1	 2	Un gran trabajador				100	0	esp/Imagenes/Chistes/chistes2.png
  1 	 3	Bebé Osama					200	0	esp/Imagenes/Chistes/chistes3.png
  1	 4								0	esp						
  1	 5								0	esp
  1	 6								0	esp
- 1	 7 								0	esp	
+ 1	 7								0	esp	
  1	 8								0	esp
  1 	 9								0	esp
  1	 10								0	esp
@@ -51,7 +51,7 @@ Tipo	Codigo	Mensaje						Precio	Ventas	Imagen
  3	 18								0	esp
  3 	 19								0	esp
  3 	 20								0	esp
- 4	 1      Whats the word?					50	0	eng/img/Jokes/jokes1.jpg
+ 4	 1	Whats the word?					50	0	eng/img/Jokes/jokes1.jpg
  4	 2							100	0	eng/img/Jokes/jokes2.png
  4 	 3							200	0	eng/img/Jokes/jokes3.png
  4	 4								0	eng						
