@@ -8,7 +8,6 @@ def abrir_mensajes():
     for i in range(0,len(texto_separado)):
         if texto_separado[i]:
             texto_separado[i] = string_replace(texto_separado[i],"\t","$").split("$")
-    print(texto_separado)
     return texto_separado
 
 def string_remove(string,elementos):
@@ -48,4 +47,5 @@ def string_replace(string,remplazado,remplazador):
         elemento_anterior=string[i]
         i+=1
     return nuevo_str
+
 

@@ -1,5 +1,6 @@
 import pygame
 from Menu_class import *
+from funcionalidad import *
 
 pygame.init()
 
@@ -122,6 +123,27 @@ lista_comandos[0].buscar_estado("Apagar").set_funcionalidad(apagar)
 lista_comandos[1].buscar_estado("Español").set_funcionalidad(traducir_espanol)
 lista_comandos[1].buscar_estado("English").set_funcionalidad(traducir_ingles)
 
+#cargando mensajes
+mensajes = abrir_mensajes()
+chistes = []
+dichos = []
+consejos = []
+for mensaje in mensajes:
+    if mensaje:
+        tipo = mensaje[0]
+        if tipo == "1":
+            consejos.append(mensaje)
+        elif tipo == "2":
+            dichos.append(mensaje)
+        elif tipo == "3":
+            chistes.append(mensaje)
+        else:
+            pass
+
+print(chistes,dichos,consejos)#,dichos,consejos)
+
+
+#Maquina de Consejos
 while running:
 
     pantalla.fill((255,153,51))
