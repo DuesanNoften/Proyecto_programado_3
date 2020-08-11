@@ -31,7 +31,7 @@ Tipo	Codigo	Mensaje						Precio	Ventas	Imagen
 2	18							200	0	esp/Imagenes/Dichos/
 2 	19							200	0	esp/Imagenes/Dichos/
 2 	20							200	0	esp/Imagenes/Dichos/
-3	1	La razón					50	0	esp/Imagenes/Consejos/consejo1.jpg	
+3	1	La_razon					50	0	esp/Imagenes/Consejos/consejo1.jpg	
 3	2							50	0	esp/Imagenes/Consejos/
 3	3							50	0	esp/Imagenes/Consejos/
 3	4							50	0	esp/Imagenes/Consejos/

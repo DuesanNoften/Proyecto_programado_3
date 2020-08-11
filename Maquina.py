@@ -1,5 +1,6 @@
 import pygame
 from Menu_class import *
+from funcionalidad import *
 
 pygame.init()
 
@@ -35,6 +36,33 @@ running = True
 #Iniciando Idioma 
 idioma = 'esp'
 
+#Cargando mensajes
+mensajes = abrir_mensajes()
+chistes = []
+dichos = []
+consejos = []
+jokes = []
+sayings = []
+advices = []
+for mensaje in mensajes:
+    if mensaje:
+        tipo = mensaje[0]
+        if tipo == "1":
+            chistes.append(mensaje)
+        elif tipo == "2":
+            dichos.append(mensaje)
+        elif tipo == "3":
+            consejos.append(mensaje)
+        elif tipo == "4":
+            jokes.append(mensaje)
+        elif tipo == "5":
+            sayings.append(mensaje)
+        elif tipo == "6":
+            advices.append(mensaje)
+        else:
+            pass
+
+
 #Iniciando comandos
 lista_comandos = [Menu("Administracion",["Ctrñ:","Resetear","Reporte","Apagar"]),
                   Menu("Idioma",["Español","English"]),
@@ -43,6 +71,7 @@ lista_comandos = [Menu("Administracion",["Ctrñ:","Resetear","Reporte","Apagar"]
 seleccionando = False
 comando_actual = 1
 estado_actual = 0
+monto = 50
 
 #Funcionalidades
 #apagar():para el ciclo
@@ -57,10 +86,13 @@ def traducir_ingles():
     lista_comandos = [Menu("Administration",["Pswd:","Reset","Report","Shut Down"]),
                       Menu("Language",["Español","English"]),
                       Menu("Message",["Advice","Joke","Saying"])]
-    lista_comandos[0].buscar_estado("Shut Down").set_funcionalidad(apagar)
-    lista_comandos[1].buscar_estado("Español").set_funcionalidad(traducir_espanol)
-    lista_comandos[1].buscar_estado("English").set_funcionalidad(traducir_ingles)
-    lista_comandos[0].buscar_estado("Pswd:").set_funcionalidad(contrasena)
+    lista_comandos[0].buscar_estado("Shut Down").set_funcionalidad(apagar,[])
+    lista_comandos[1].buscar_estado("Español").set_funcionalidad(traducir_espanol,[])
+    lista_comandos[1].buscar_estado("English").set_funcionalidad(traducir_ingles,[])
+    lista_comandos[0].buscar_estado("Pswd:").set_funcionalidad(contrasena,[])
+    lista_comandos[2].buscar_estado("Joke").set_funcionalidad(imprimir,jokes)
+    lista_comandos[2].buscar_estado("Advice").set_funcionalidad(imprimir,advices)
+    lista_comandos[2].buscar_estado("Saying").set_funcionalidad(imprimir,sayings)
 #traducir_espanol(): cambia a lenguaje de los comandos a espanol
 def traducir_espanol():
     global lista_comandos
@@ -69,15 +101,19 @@ def traducir_espanol():
     lista_comandos = [Menu("Administracion",["Ctrñ:","Resetear","Reporte","Apagar"]),
                   Menu("Idioma",["Español","English"]),
                   Menu("Mensaje",["Consejo","Chiste","Dicho"])]
-    lista_comandos[0].buscar_estado("Apagar").set_funcionalidad(apagar)
-    lista_comandos[1].buscar_estado("Español").set_funcionalidad(traducir_espanol)
-    lista_comandos[1].buscar_estado("English").set_funcionalidad(traducir_ingles)
-    lista_comandos[0].buscar_estado("Ctrñ:").set_funcionalidad(contrasena)
+    lista_comandos[0].buscar_estado("Apagar").set_funcionalidad(apagar,[])
+    lista_comandos[1].buscar_estado("Español").set_funcionalidad(traducir_espanol,[])
+    lista_comandos[1].buscar_estado("English").set_funcionalidad(traducir_ingles,[])
+    lista_comandos[0].buscar_estado("Ctrñ:").set_funcionalidad(contrasena,[])
+    lista_comandos[2].buscar_estado("Chiste").set_funcionalidad(imprimir,chistes)
+    lista_comandos[2].buscar_estado("Dicho").set_funcionalidad(imprimir,dichos)
+    lista_comandos[2].buscar_estado("Consejo").set_funcionalidad(imprimir,consejos)
 #contrasena():
 #E: lista de rectangulos
 #S: Recibe contraseña por medio de colisiones con los rectangulos con el mouse y retorna un bool
 #R: -
-def contrasena(recs,menu,estado):
+def contrasena(args):#argumentos:recs,menu,estado
+    recs,menu,estado = args
     tmp = menu.get_estado(estado).get_nombre()
     ctrn_surface = pygame.Surface((275,75))
     ctrn_surface.fill((33,150,243))
@@ -109,19 +145,53 @@ def contrasena(recs,menu,estado):
             
         pygame.display.update()
         clock.tick(60)
-        
+ 
     menu.set_estado(estado,tmp)
-    lista_comandos[0].buscar_estado(tmp).set_funcionalidad(contrasena)
     ctrn_surface.fill((33,150,243))
     comandos.blit(ctrn_surface,ctrn_rect)
     return correcta
+
+#imprimir(tipo,monto)
+def imprimir(args):#argumentos: tipo
+    global monto
+    tipo = args
+    #Conseguir mensaje: hacer una lista de los precios, comparar los precios
+    precios = []
+    for ele in tipo:
+        if ele[3].isnumeric():
+            if int(ele[3]) >= monto:
+                precios.append(int(ele[3]))
+    if len(precios) != 1:
+        precio = comparar_precios(monto,precios)
+    else:
+        precio = precios[0]-monto
+    indice = precios.index(precio+monto)
+    mensaje = tipo[indice]
+    print(mensaje)
+    return mensaje
+    #Imprimir mensaje
+
+#comparar_precio(monto,lista)
+def comparar_precios(monto,lista):
+    #Hacer una pila de comparaciones
+    if lista[1:] == []:
+        return lista[0]
+    else:
+        return comparar_menor(lista[0]-monto,comparar_precios(monto,lista[1:]))
+#comparar_menor
+def comparar_menor(x,y):
+    if x > y:
+        return y
+    else:
+        return x
                 
 #Asignando funcionalidades
-lista_comandos[0].buscar_estado("Ctrñ:").set_funcionalidad(contrasena)
-lista_comandos[0].buscar_estado("Apagar").set_funcionalidad(apagar)
-lista_comandos[1].buscar_estado("Español").set_funcionalidad(traducir_espanol)
-lista_comandos[1].buscar_estado("English").set_funcionalidad(traducir_ingles)
+lista_comandos[0].buscar_estado("Ctrñ:").set_funcionalidad(contrasena,[])
+lista_comandos[0].buscar_estado("Apagar").set_funcionalidad(apagar,[])
+lista_comandos[1].buscar_estado("Español").set_funcionalidad(traducir_espanol,[])
+lista_comandos[1].buscar_estado("English").set_funcionalidad(traducir_ingles,[])
 
+#Maquina de Consejos
 while running:
 
     pantalla.fill((255,153,51))
@@ -210,19 +280,17 @@ while running:
                     seleccionando = False
                     estado_actual = 0
                     lista_comandos[comando_actual].reset()
-                    funcion = lista_comandos[comando_actual].get_estado(estado_tmp).funcionalidad
                     nombre_estado = lista_comandos[comando_actual].get_estado(estado_tmp).get_nombre()
                     if nombre_estado == "Ctrñ:" or nombre_estado == "Pswd:":
-                        print(type(funcion))
-                        valor = funcion([boton1_rect,
-                                         boton0_rect],
-                                        lista_comandos[comando_actual],
-                                        estado_tmp)
+                        lista_comandos[0].buscar_estado(nombre_estado).set_funcionalidad(contrasena,[[boton1_rect,boton0_rect],
+                                                                       lista_comandos[comando_actual],
+                                                                       estado_tmp])
+                        valor = lista_comandos[comando_actual].get_estado(estado_tmp).do_funcionalidad()
                         if valor:
                             estado_actual += 1
                             break
-                    elif funcion != None:
-                        funcion()
+                    elif lista_comandos[comando_actual].get_estado(estado_tmp).get_funcionalidad() != None:
+                       lista_comandos[comando_actual].get_estado(estado_tmp).do_funcionalidad()
                     if comando_actual != len(lista_comandos)-1:
                            comando_actual += 1
                     break
@@ -238,7 +306,6 @@ while running:
                     seleccionando = False
                     valor = len(lista_comandos[comando_actual].get_tmp()[1])
                     lista_comandos[comando_actual].reset()
-                    funcion = lista_comandos[comando_actual].get_estado(estado_tmp).funcionalidad
                     nombre_estado = lista_comandos[comando_actual].get_estado(estado_tmp).get_nombre()
                     if nombre_estado == "Ctrñ:" or nombre_estado == "Pswd:":
                         pass
