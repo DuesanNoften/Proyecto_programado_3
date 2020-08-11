@@ -8,8 +8,21 @@ class Estado():
     def get_nombre(self):
         return self.nombre
 
-    def set_funcionalidad(self,funcion):
+    def get_funcionalidad(self):
+        return self.funcionalidad
+
+    def set_funcionalidad(self,funcion,args):
         self.funcionalidad = funcion
+        self.args = args
+
+    def do_funcionalidad(self):
+        if self.funcionalidad == None:
+            return None
+        else:
+            if self.args:
+                return self.funcionalidad(self.args)
+            else:
+                return self.funcionalidad()
 
 
 class Menu():

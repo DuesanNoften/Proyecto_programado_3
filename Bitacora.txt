@@ -26,3 +26,7 @@ Creacion de la funcion abrir_mensajes(1 hora y media)
 9-8-2020:
 Se abren los mensajes en la maquina y se obtienen los diferentes tipos(30 min)
 
+11-8-2020:
+Se hicieron cambios en la clase de los estados, para implementar argumentos en las fucionalidades. Tambien se hizo la primera version de imprimir los mensajes
+(2 horas y media)
+
