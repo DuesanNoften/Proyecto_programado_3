@@ -81,7 +81,7 @@ Tipo	Codigo	Mensaje						Precio	Ventas	Imagen
 5	18	The generations					200	0	eng/img/Sayings/said8
 5 	19	Friction					200	0	eng/img/Sayings/said7
 5 	20	Smile						200	0	eng/img/Sayings/said10
-6	1	The reason					50	0	eng/img/Tips/tip1.jpg	
+6	1	The reason					50	0	eng/img/Tips/tip1.png	
 6	2	Choose wisely					50	0	eng/img/Tips/tip2
 6	3	But						50	0	eng/img/Tips/tip6
 6	4	Straighten up					50	0	eng/img/Tips/tip7
