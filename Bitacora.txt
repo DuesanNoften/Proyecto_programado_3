@@ -22,11 +22,15 @@ Creacion del sistema de contraseña en administracion y primeras traducciones en
 
 8-8-2020: 
 Creacion de la funcion abrir_mensajes(1 hora y media)
-
+Creacion de la clase Dinero (1 hora)
 9-8-2020:
 Se abren los mensajes en la maquina y se obtienen los diferentes tipos(30 min)
 
 11-8-2020:
 Se hicieron cambios en la clase de los estados, para implementar argumentos en las fucionalidades. Tambien se hizo la primera version de imprimir los mensajes
 (2 horas y media)
+Traduciendo imagenes (2 horas)
+
+12-8-2020:
+Traduciendo más imagenes y creando imagenes con los chistes que no poseen imagen (1 hora 30 min)
 
