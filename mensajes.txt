@@ -31,7 +31,7 @@ Tipo	Codigo	Mensaje						Precio	Ventas	Imagen
  2	 18								0	esp
  2 	 19								0	esp
  2 	 20								0	esp
- 3	 1	La razón					200	0	esp/Imagenes/Consejos/consejo1.jpg	
+ 3	 1	Recuerde lavarse las manos con agua y con jabon		200	0	esp/Imagenes/Consejos/consejo1.jpg	
  3	 2								0	esp
  3	 3								0	esp
  3	 4								0	esp

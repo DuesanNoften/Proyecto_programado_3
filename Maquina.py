@@ -29,6 +29,7 @@ def crear_texto(texto, tipo_font, color,tamano,posicion,posicion_rect,superficie
 
 #Iniciando font de consola
 consola_font = "lucidaconsole"
+papel_font = "garamond"
     
 #Advice Machine
 running = True
@@ -90,9 +91,9 @@ def traducir_ingles():
     lista_comandos[1].buscar_estado("Español").set_funcionalidad(traducir_espanol,[])
     lista_comandos[1].buscar_estado("English").set_funcionalidad(traducir_ingles,[])
     lista_comandos[0].buscar_estado("Pswd:").set_funcionalidad(contrasena,[])
-    lista_comandos[2].buscar_estado("Joke").set_funcionalidad(imprimir,jokes)
-    lista_comandos[2].buscar_estado("Advice").set_funcionalidad(imprimir,advices)
-    lista_comandos[2].buscar_estado("Saying").set_funcionalidad(imprimir,sayings)
+    lista_comandos[2].buscar_estado("Joke").set_funcionalidad(imprimir,[jokes,''])
+    lista_comandos[2].buscar_estado("Advice").set_funcionalidad(imprimir,[advices,''])
+    lista_comandos[2].buscar_estado("Saying").set_funcionalidad(imprimir,[sayings,''])
 #traducir_espanol(): cambia a lenguaje de los comandos a espanol
 def traducir_espanol():
     global lista_comandos
@@ -105,9 +106,9 @@ def traducir_espanol():
     lista_comandos[1].buscar_estado("Español").set_funcionalidad(traducir_espanol,[])
     lista_comandos[1].buscar_estado("English").set_funcionalidad(traducir_ingles,[])
     lista_comandos[0].buscar_estado("Ctrñ:").set_funcionalidad(contrasena,[])
-    lista_comandos[2].buscar_estado("Chiste").set_funcionalidad(imprimir,chistes)
-    lista_comandos[2].buscar_estado("Dicho").set_funcionalidad(imprimir,dichos)
-    lista_comandos[2].buscar_estado("Consejo").set_funcionalidad(imprimir,consejos)
+    lista_comandos[2].buscar_estado("Chiste").set_funcionalidad(imprimir,[chistes,'esp'])
+    lista_comandos[2].buscar_estado("Dicho").set_funcionalidad(imprimir,[dichos,'esp'])
+    lista_comandos[2].buscar_estado("Consejo").set_funcionalidad(imprimir,[consejos,'esp'])
 #contrasena():
 #E: lista de rectangulos
 #S: Recibe contraseña por medio de colisiones con los rectangulos con el mouse y retorna un bool
@@ -151,11 +152,13 @@ def contrasena(args):#argumentos:recs,menu,estado
     comandos.blit(ctrn_surface,ctrn_rect)
     return correcta
 
-#imprimir(tipo,monto)
+#imprimir(tipo)
+#E: lista de los mensajes que se pueden imprimir
+#S: Se escoge el mensaje con el precio mas cercano al monto actual y se imprime en la superficie
+#R: -
 def imprimir(args):#argumentos: tipo
     global monto
-    tipo = args
-    #Conseguir mensaje: hacer una lista de los precios, comparar los precios
+    tipo,idioma = args
     precios = []
     for ele in tipo:
         if ele[3].isnumeric():
@@ -168,17 +171,110 @@ def imprimir(args):#argumentos: tipo
     indice = precios.index(precio+monto)
     mensaje = tipo[indice]
     print(mensaje)
-    return mensaje
-    #Imprimir mensaje
+
+    marco = pygame.Surface((260,100))
+    marco.fill((255,255,255))
+    marco.set_colorkey((255,255,255))
+    marco_rect = marco.get_rect()
+    marco_rect.topleft = (20,45)
+    papel = pygame.Surface((260,100))
+    papel.fill((241,238,228))
+    papel_rect = papel.get_rect()
+    papel_y = -marco.get_height()
+    print(papel_y)
+    papel_yreal = papel_y
+    papel_rect.topleft = (0,papel_y)
+    if idioma == 'esp':
+        crear_texto("Click aqui",
+                    papel_font,
+                    (0,0,0),30,
+                    (papel_rect.width//2,papel_rect.height//2),
+                    'centro',papel)
+    else:
+        crear_texto("Click here",
+                    papel_font,
+                    (0,0,0),30,
+                    (papel_rect.width//2,papel_rect.height//2),
+                    'centro',papel)
+
+    impresora = pygame.Surface((300,170))
+    impresora.fill((189,189,189))
+    pygame.draw.rect(impresora,(0,0,0),(20,35,260,25))
+    superficie_rect = impresora.get_rect()
+    superficie_rect.topleft = (180,110)
+
+    running = True
+    while running:
+        marco.fill((255,255,255))
+        marco.set_colorkey((255,255,255))
+        marco.blit(papel,papel_rect)
+        impresora.blit(marco,marco_rect)
+        pantalla.blit(impresora,superficie_rect)
+
+        if papel_yreal < 0:
+            papel_yreal += 2
+            papel_y = int(papel_yreal)
+            papel_rect.topleft = (0,papel_y)
+            print(papel_y,papel_yreal)
+        else:
+            pass 
+
+        for event in pygame.event.get():
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                mouse_pos = list(pygame.mouse.get_pos())
+                print(mouse_pos)
+                mouse_pos[0] -= 180
+                mouse_pos[1] -= 110
+                print(mouse_pos)
+                if marco_rect.collidepoint(mouse_pos):
+                    running = False
+                
+        pygame.display.update()
+        clock.tick(60)
+
+    marco = pygame.Surface((460,260))
+    marco.fill((241,238,228))
+    marco_rect = marco.get_rect()
+    marco_rect.topleft = (20,20)
+    papel = pygame.image.load(mensaje[5])
+    papel = pygame.transform.scale(papel,(400,200))
+    papel_rect = papel.get_rect()
+    papel_rect.midtop = (marco_rect.midtop[0]-20,30)
+    boton_salida = pygame.image.load('boton_salida.png').convert()
+    boton_salida.set_colorkey((255,255,255))
+    botons_rect = boton_salida.get_rect()
+    botons_rect.topleft = (marco_rect.width -(botons_rect.width+10),5)
+
+    running = True
+
+    while running:
+        marco.blit(boton_salida,botons_rect)
+        marco.blit(papel,papel_rect)
+        pantalla.blit(marco,marco_rect)
+
+        for event in pygame.event.get():
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                mouse_pos = list(pygame.mouse.get_pos())
+                print(mouse_pos)
+                mouse_pos[0] -= botons_rect.topleft[0]
+                mouse_pos[1] -= botons_rect.topleft[1]
+                print(mouse_pos)
+                if marco_rect.collidepoint(mouse_pos):
+                    running = False
+
+        pygame.display.update()
 
 #comparar_precio(monto,lista)
+#E: un monti y la lista de mensajes
+#S: la menor diferencia entre el precio de los mensajes y el monto
+#R: -
 def comparar_precios(monto,lista):
     #Hacer una pila de comparaciones
     if lista[1:] == []:
         return lista[0]
     else:
         return comparar_menor(lista[0]-monto,comparar_precios(monto,lista[1:]))
-#comparar_menor
+#comparar_menor(): compara dos numeros y retorna el menor
 def comparar_menor(x,y):
     if x > y:
         return y
