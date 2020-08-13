@@ -2,103 +2,103 @@
 Tipo	Codigo	Mensaje						Precio	Ventas	Imagen
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 1	1	Indirectas					50	0	esp/Imagenes/Chistes/chistes1.jpg
-1	2							50	0	esp/Imagenes/Chistes/
-1 	3							50	0	esp/Imagenes/Chistes/
-1	4							50	0	esp/Imagenes/Chistes/						
-1	5							50	0	esp/Imagenes/Chistes/
-1	6							50	0	esp/Imagenes/Chistes/
-1	7 							50	0	esp/Imagenes/Chistes/	
-1	8							50	0	esp/Imagenes/Chistes/
+1	2	Buenos valores					50	0	esp/Imagenes/Chistes/chistes4.png
+1 	3	Una llamada					50	0	esp/Imagenes/Chistes/chistes5.jpg
+1	4	Vaya fortuna					50	0	esp/Imagenes/Chistes/chistes6.png						
+1	5	Taladro						50	0	esp/Imagenes/Chistes/chistes7.png
+1	6	El DJ						50	0	esp/Imagenes/Chistes/chistes8.png
+1	7 	Vaya despiste					50	0	esp/Imagenes/Chistes/chistes9.png	
+1	8	Impresiones					50	0	esp/Imagenes/Chistes/chistes10.png
 1 	9	Un gran trabajador				100	0	esp/Imagenes/Chistes/chistes2.png
 1	10	Bebe Osama					200	0	esp/Imagenes/Chistes/chistes3.png
 2	1	La vida es					50	0	esp/Imagenes/Dichos/dicho1.jpg
-2	2							50	0	esp/Imagenes/Dichos/
-2	3							50	0	esp/Imagenes/Dichos/
-2	4							50	0	esp/Imagenes/Dichos/
-2	5							50	0	esp/Imagenes/Dichos/
-2	6							50	0	esp/Imagenes/Dichos/
-2	7							50	0	esp/Imagenes/Dichos/
-2 	8							50	0	esp/Imagenes/Dichos/
-2	9							50	0	esp/Imagenes/Dichos/
-2	10							50	0	esp/Imagenes/Dichos/
-2 	11							50	0	esp/Imagenes/Dichos/
-2	12							50	0	esp/Imagenes/Dichos/
-2	13							50	0	esp/Imagenes/Dichos/
-2	14							50	0	esp/Imagenes/Dichos/
-2	15							100	0	esp/Imagenes/Dichos/
-2 	16							100	0	esp/Imagenes/Dichos/
-2	17							100	0	esp/Imagenes/Dichos/
-2	18							200	0	esp/Imagenes/Dichos/
-2 	19							200	0	esp/Imagenes/Dichos/
-2 	20							200	0	esp/Imagenes/Dichos/
+2	2	La lengua					50	0	esp/Imagenes/Dichos/dicho6.png
+2	3	Hormiguero					50	0	esp/Imagenes/Dichos/dicho2.jpg
+2	4	Piensa antes de prometer			50	0	esp/Imagenes/Dichos/dicho3.png
+2	5	Jamas desesperes				50	0	esp/Imagenes/Dichos/dicho4.png
+2	6	Aprender					50	0	esp/Imagenes/Dichos/dicho20.jpg
+2	7	Ojo,mente,espiritu				50	0	esp/Imagenes/Dichos/dicho12.png
+2 	8	Pregunta					50	0	esp/Imagenes/Dichos/dicho13.png
+2	9	Arbol						50	0	esp/Imagenes/Dichos/dicho14.png
+2	10	Que no anide					50	0	esp/Imagenes/Dichos/dicho15.png
+2 	11	Una tienda					50	0	esp/Imagenes/Dichos/dicho16.png
+2	12	Fosa metacarpiana				50	0	esp/Imagenes/Dichos/dicho17.png
+2	13	Nadie sabe					50	0	esp/Imagenes/Dichos/dicho18.png
+2	14	Una cuchara>Una olla				50	0	esp/Imagenes/Dichos/dicho19.png
+2	15	Mentes						100	0	esp/Imagenes/Dichos/dicho5.png
+2 	16	Buen puerto					100	0	esp/Imagenes/Dichos/dicho9.png
+2	17	El que enseña					100	0	esp/Imagenes/Dichos/dicho11.png
+2	18	Las generaciones				200	0	esp/Imagenes/Dichos/dicho8.png
+2 	19	Friccion					200	0	esp/Imagenes/Dichos/dicho7.jpg
+2 	20	Sonrie						200	0	esp/Imagenes/Dichos/dicho10.png
 3	1	La_razon					50	0	esp/Imagenes/Consejos/consejo1.jpg	
-3	2							50	0	esp/Imagenes/Consejos/
-3	3							50	0	esp/Imagenes/Consejos/
-3	4							50	0	esp/Imagenes/Consejos/
-3	5							50	0	esp/Imagenes/Consejos/
-3	6							50	0	esp/Imagenes/Consejos/
-3	7							50	0	esp/Imagenes/Consejos/
-3 	8							50	0	esp/Imagenes/Consejos/
-3	9							50	0	esp/Imagenes/Consejos/
-3	10							50	0	esp/Imagenes/Consejos/
-3 	11							50	0	esp/Imagenes/Consejos/
-3	12							50	0	esp/Imagenes/Consejos/
-3	13							50	0	esp/Imagenes/Consejos/
-3	14							50	0	esp/Imagenes/Consejos/
-3	15							100	0	esp/Imagenes/Consejos/
-3 	16							100	0	esp/Imagenes/Consejos/
-3	17							100	0	esp/Imagenes/Consejos/
-3	18							200	0	esp/Imagenes/Consejos/
-3 	19							200	0	esp/Imagenes/Consejos/
-3 	20							200	0	esp/Imagenes/Consejos/
-4	1	Indirect					50	0	eng/img/Jokes/jokes1.jpg
-4	2							50	0	eng/img/Jokes/
-4 	3							50	0	eng/img/Jokes/
-4	4							50	0	eng/img/Jokes/						
-4	5							50	0	eng/img/Jokes/
-4	6							50	0	eng/img/Jokes/
-4	7 							50	0	eng/img/Jokes/	
-4	8							50	0	eng/img/Jokes/
-4 	9	A great worker					100	0	eng/img/Jokes/jokes2.png
-4	10	Baby Osama					200	0	eng/img/Jokes/jokes3.png
+3	2	Elige bien					50	0	esp/Imagenes/Consejos/consejo2.png
+3	3	Pero						50	0	esp/Imagenes/Consejos/consejo6.jpg
+3	4	Enderezate					50	0	esp/Imagenes/Consejos/consejo7.png
+3	5	Fijate						50	0	esp/Imagenes/Consejos/consejo8.png
+3	6	La fuerza de la lengua				50	0	esp/Imagenes/Consejos/consejo9.png
+3	7	El feliz					50	0	esp/Imagenes/Consejos/consejo10.png
+3 	8	La lucha					50	0	esp/Imagenes/Consejos/consejo11.png
+3	9	No se trata de					50	0	esp/Imagenes/Consejos/consejo14.png
+3	10	Se humilde					50	0	esp/Imagenes/Consejos/consejo15.jpg
+3 	11	Un amigo					50	0	esp/Imagenes/Consejos/consejo16.jpg
+3	12	Ten paciencia					50	0	esp/Imagenes/Consejos/consejo17.png
+3	13	No compares					50	0	esp/Imagenes/Consejos/consejo18.png
+3	14	Cambia el como					50	0	esp/Imagenes/Consejos/consejo19.png
+3	15	La vida						100	0	esp/Imagenes/Consejos/consejo13.png
+3 	16	La culpa					100	0	esp/Imagenes/Consejos/consejo12.png
+3	17	Ten coraje					100	0	esp/Imagenes/Consejos/consejo3.png
+3	18	No critiques					200	0	esp/Imagenes/Consejos/consejo4.png
+3 	19	Quien trabaja					200	0	esp/Imagenes/Consejos/consejo5.png
+3 	20	No esperes					200	0	esp/Imagenes/Consejos/consejo20.jpg
+4	1	Indirect					50	0	eng/img/Jokes/joke1.jpg
+4	2	Good values					50	0	eng/img/Jokes/joke4.png
+4 	3	A call						50	0	eng/img/Jokes/joke5.jpg
+4	4	What a fortune					50	0	eng/img/Jokes/joke6.jpg						
+4	5	Chilli Dog					50	0	eng/img/Jokes/joke7.png
+4	6	DJ						50	0	eng/img/Jokes/joke8.png
+4	7 	How clueless					50	0	eng/img/Jokes/joke9.png	
+4	8	Impressions					50	0	eng/img/Jokes/joke10.png
+4 	9	A great worker					100	0	eng/img/Jokes/joke2.png
+4	10	Baby Osama					200	0	eng/img/Jokes/joke3.png
 5	1	A story						50	0	eng/img/Sayings/said1.jpg
-5	2							50	0	eng/img/Sayings/
-5	3							50	0	eng/img/Sayings/
-5	4							50	0	eng/img/Sayings/
-5	5							50	0	eng/img/Sayings/
-5	6							50	0	eng/img/Sayings/
-5	7							50	0	eng/img/Sayings/
-5 	8							50	0	eng/img/Sayings/
-5	9							50	0	eng/img/Sayings/
-5	10							50	0	eng/img/Sayings/
-5 	11							50	0	eng/img/Sayings/
-5	12							50	0	eng/img/Sayings/
-5	13							50	0	eng/img/Sayings/
-5	14							50	0	eng/img/Sayings/
-5	15							100	0	eng/img/Sayings/
-5 	16							100	0	eng/img/Sayings/
-5	17							100	0	eng/img/Sayings/
-5	18							200	0	eng/img/Sayings/
-5 	19							200	0	eng/img/Sayings/
-5 	20							200	0	eng/img/Sayings/
-6	1	what to do					50	0	eng/img/Tips/tip1.jpg	
-6	2							50	0	eng/img/Tips/
-6	3							50	0	eng/img/Tips/
-6	4							50	0	eng/img/Tips/
-6	5							50	0	eng/img/Tips/
-6	6							50	0	eng/img/Tips/
-6	7							50	0	eng/img/Tips/
-6 	8							50	0	eng/img/Tips/
-6	9							50	0	eng/img/Tips/
-6	10							50	0	eng/img/Tips/
-6 	11							50	0	eng/img/Tips/
-6	12							50	0	eng/img/Tips/
-6	13							50	0	eng/img/Tips/
-6	14							50	0	eng/img/Tips/
-6	15							100	0	eng/img/Tips/
-6 	16							100	0	eng/img/Tips/
-6	17							100	0	eng/img/Tips/
-6	18							200	0	eng/img/Tips/
-6 	19							200	0	eng/img/Tips/
-6 	20							200	0	eng/img/Tips/
+5	2	The tongue					50	0	eng/img/Sayings/said6
+5	3	Anthill						50	0	eng/img/Sayings/said2
+5	4	Think before vpw				50	0	eng/img/Sayings/said3
+5	5	Never despair					50	0	eng/img/Sayings/said4
+5	6	Learning					50	0	eng/img/Sayings/said20
+5	7	Eye,mind,spirit					50	0	eng/img/Sayings/said12
+5 	8	Ask						50	0	eng/img/Sayings/said13
+5	9	Tree						50	0	eng/img/Sayings/said14
+5	10	Don't let nest					50	0	eng/img/Sayings/said15
+5 	11	A store						50	0	eng/img/Sayings/said16
+5	12	Bird at hand					50	0	eng/img/Sayings/said17
+5	13	No one knows					50	0	eng/img/Sayings/said18
+5	14	A spoon>a pot					50	0	eng/img/Sayings/said19
+5	15	Minds						100	0	eng/img/Sayings/said5
+5 	16	Good harbor					100	0	eng/img/Sayings/said9
+5	17	The one who teaches				100	0	eng/img/Sayings/said11
+5	18	The generations					200	0	eng/img/Sayings/said8
+5 	19	Friction					200	0	eng/img/Sayings/said7
+5 	20	Smile						200	0	eng/img/Sayings/said10
+6	1	The reason					50	0	eng/img/Tips/tip1.jpg	
+6	2	Choose wisely					50	0	eng/img/Tips/tip2
+6	3	But						50	0	eng/img/Tips/tip6
+6	4	Straighten up					50	0	eng/img/Tips/tip7
+6	5	Look						50	0	eng/img/Tips/tip8
+6	6	The strenght of the tongue			50	0	eng/img/Tips/tip9
+6	7	The happy one					50	0	eng/img/Tips/tip10
+6 	8	The fight					50	0	eng/img/Tips/tip11
+6	9	Its not about					50	0	eng/img/Tips/tip14
+6	10	Be humble					50	0	eng/img/Tips/tip15
+6 	11	A friend					50	0	eng/img/Tips/tip16
+6	12	Be patient					50	0	eng/img/Tips/tip17
+6	13	Don't compare					50	0	eng/img/Tips/tip18
+6	14	Changes the how					50	0	eng/img/Tips/tip19
+6	15	The life					100	0	eng/img/Tips/tip13
+6 	16	The guilt					100	0	eng/img/Tips/tip12
+6	17	Be brave 					100	0	eng/img/Tips/tip3
+6	18	Don't criticize					200	0	eng/img/Tips/tip4
+6 	19	Who works					200	0	eng/img/Tips/tip5
+6 	20	Don't wait					200	0	eng/img/Tips/tip20
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------

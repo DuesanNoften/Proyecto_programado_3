@@ -1,14 +1,14 @@
 import pygame
 from Menu_class import *
 from funcionalidad import *
-
+from Dinero_class import *
 pygame.init()
 
 #Iniciando clock
 clock = pygame.time.Clock()
 
 #Iniciando pantalla
-pantalla = pygame.display.set_mode((500,300))
+pantalla = pygame.display.set_mode((700,300))
 pygame.display.set_caption("Advice Machine")
 
 #crear_texto
@@ -215,7 +215,16 @@ while running:
     impresora.fill((189,189,189))
     impresora_rect = impresora.get_rect()
     impresora_rect.topleft = (170,100)
-    
+
+    #Creando bandeja con dinero
+    bandejas=pygame.Surface((300,290))
+    bandejas.fill((87,87,88))
+    bandejas_rect=bandejas.get_rect()
+    bandejas_rect.topleft=(500,5)
+    bandeja=pygame.Surface((180,270))
+    bandeja.fill((50,59,86))
+    bandeja_rect=bandeja.get_rect()
+    bandeja_rect.topleft=(510,15)
     #Creando Ranura de impresión
     pygame.draw.rect(impresora,(0,0,0),(20,35,260,25))
 
@@ -258,7 +267,18 @@ while running:
     contenedor.blit(impresora,impresora_rect)
     contenedor.blit(comandos,comandos_rect)
     contenedor.blit(espacio_monedas,espacio_monedas_rect)
+    bandeja.blit(moneda.image,(10,180))
+    bandeja.blit(moneda.image,(40,150))
+    bandeja.blit(moneda.image,(0,180))
+    bandeja.blit(moneda.image,(90,180))
+    bandeja.blit(moneda.image,(50,180))
+    bandeja.blit(moneda.image,(70,150))
+    bandeja.blit(moneda.image,(50,150))
     pantalla.blit(contenedor,contenedor_rect)
+    pantalla.blit(moneda.lado,(moneda.posx,moneda.posy))
+    pantalla.blit(bandejas,bandejas_rect)
+    pantalla.blit(bandeja,bandeja_rect)
+    
 
     
     for event in pygame.event.get():
@@ -266,6 +286,7 @@ while running:
             running = False
         if event.type == pygame.MOUSEBUTTONDOWN:
             mouse_pos = pygame.mouse.get_pos()
+            moneda.posx,moneda.posy=mouse_pos
             if boton1_rect.collidepoint(mouse_pos):
                 if seleccionando == False:
                     seleccionando = True
