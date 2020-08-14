@@ -7,6 +7,9 @@ pygame.init()
 #Iniciando clock
 clock = pygame.time.Clock()
 
+#Creando la variable saldo, para su uso
+global saldo
+saldo=0
 #Iniciando pantalla
 pantalla = pygame.display.set_mode((700,300))
 pygame.display.set_caption("Advice Machine")
@@ -157,6 +160,7 @@ def contrasena(args):#argumentos:recs,menu,estado
 #S: Se escoge el mensaje con el precio mas cercano al monto actual y se imprime en la superficie
 #R: -
 def imprimir(args):#argumentos: tipo
+    global saldo
     global monto
     tipo,idioma = args
     precios = []
@@ -263,6 +267,8 @@ def imprimir(args):#argumentos: tipo
                     running = False
 
         pygame.display.update()
+    saldo-=monto+precio
+    print(saldo)
 
 #comparar_precio(monto,lista)
 #E: un monti y la lista de mensajes
@@ -289,7 +295,6 @@ lista_comandos[1].buscar_estado("English").set_funcionalidad(traducir_ingles,[])
 
 #Maquina de Consejos
 while running:
-
     pantalla.fill((255,153,51))
 
     #Creando contenedor
@@ -303,9 +308,14 @@ while running:
     espacio_monedas.fill((189,189,189))
     espacio_monedas_rect = espacio_monedas.get_rect()
     espacio_monedas_rect.topleft = (10,10)
+    hendija=pygame.Surface((10,90))
+    hendija.fill((0,0,0))
+    hendija_rect=hendija.get_rect()
+    hendija_rect.centerx= 90
+    hendija_rect.centery= 80
     pygame.draw.circle(espacio_monedas,(224,224,224),(75,60),50,0)
     pygame.draw.rect(espacio_monedas,(0,0,0),(70,15,10,90))
-
+    
     #Creando Impresora
     impresora = pygame.Surface((300,170))
     impresora.fill((189,189,189))
@@ -321,6 +331,7 @@ while running:
     bandeja.fill((50,59,86))
     bandeja_rect=bandeja.get_rect()
     bandeja_rect.topleft=(510,15)
+    
     #Creando Ranura de impresión
     pygame.draw.rect(impresora,(0,0,0),(20,35,260,25))
 
@@ -363,6 +374,7 @@ while running:
     contenedor.blit(impresora,impresora_rect)
     contenedor.blit(comandos,comandos_rect)
     contenedor.blit(espacio_monedas,espacio_monedas_rect)
+    contenedor.blit(hendija,(80,25))
     bandeja.blit(moneda.image,(10,180))
     bandeja.blit(moneda.image,(40,150))
     bandeja.blit(moneda.image,(0,180))
@@ -382,7 +394,11 @@ while running:
             running = False
         if event.type == pygame.MOUSEBUTTONDOWN:
             mouse_pos = pygame.mouse.get_pos()
-            moneda.posx,moneda.posy=mouse_pos
+            if hendija_rect.collidepoint(mouse_pos):
+                moneda.posx,moneda.posy=mouse_pos
+                saldo += moneda.valor
+                print(saldo)
+                
             if boton1_rect.collidepoint(mouse_pos):
                 if seleccionando == False:
                     seleccionando = True
