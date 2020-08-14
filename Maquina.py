@@ -172,15 +172,16 @@ def imprimir(args):#argumentos: tipo
     precios = []
     for ele in tipo:
         if ele[3].isnumeric():
-            if int(ele[3]) >= monto:
+            if int(ele[3]) <= saldo:
                 precios.append(int(ele[3]))
     if len(precios) != 1:
         global precio
-        precio = comparar_precios(monto,precios)
+        precio = comparar_precios(saldo,precios)
     else:
         precio = precios[0]-monto
     indice = precios.index(precio+saldo)
     mensaje = tipo[indice]
+    print(saldo,precios,precio,precio+monto)
     print(mensaje)
     if saldo>=precio:
         saldo=precio
@@ -330,7 +331,7 @@ def comparar_precios(monto,lista):
     if lista[1:] == []:
         return lista[0]
     else:
-        return comparar_menor(lista[0]-monto,comparar_precios(monto,lista[1:]))
+        return comparar_menor(abs(lista[0]-monto),comparar_precios(monto,lista[1:]))
 #comparar_menor(): compara dos numeros y retorna el menor
 def comparar_menor(x,y):
     if x > y:
