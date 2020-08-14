@@ -1,7 +1,13 @@
 import pygame
 """
 Clase dinero
-Se maneja en una ventana aparte y posee
+Self.image=Es la imagen principal de la clase
+self.lado= Es la imagen de el costado angosto de la moneda utilizado para cuando se inserta
+self.valor= Es el valor con el que se reconoce la moneda en el programa
+self.rect= Es el hitbox de self.image
+self.rect= Es el hitbox de self.lado
+self.posx=Es la posicion en x donde se genera la moneda
+self.posy=Es la posicion en y donde se genera la moneda
 """
 pygame.init()
 
