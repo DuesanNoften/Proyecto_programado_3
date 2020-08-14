@@ -1,4 +1,4 @@
-
+#abrir_mensajes(): abre el archivo mensajes y hace la division de los datos
 def abrir_mensajes():
     archivo=open("mensajes.txt","r")
     texto_archivo=archivo.read()
@@ -10,6 +10,10 @@ def abrir_mensajes():
             texto_separado[i] = string_replace(texto_separado[i],"\t","$").split("$")
     return texto_separado
 
+# string_remove(string,elementos)
+#E: un string y los elementos que quieren ser eliminados de esta (lista)
+#S: el string sin los elementos eliminados
+#R: -
 def string_remove(string,elementos):
     len_str = len(string)
     nuevo_str=''
@@ -26,6 +30,10 @@ def string_remove(string,elementos):
         i+=1
     return nuevo_str
 
+#string_replace(string,remplazado,remplazador)
+#E: un string, un elemento que se sea remplazar, y el elemento por el cual se va a reemplazar
+#S: el string con el elemento remplazadoren vez del elemento a remplazar(si se repite varias veces se reemplaza una vez)
+#R: -
 def string_replace(string,remplazado,remplazador):
     len_str = len(string)
     nuevo_str=''
@@ -47,5 +55,4 @@ def string_replace(string,remplazado,remplazador):
         elemento_anterior=string[i]
         i+=1
     return nuevo_str
-
 
