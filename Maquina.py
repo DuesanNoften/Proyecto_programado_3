@@ -193,7 +193,6 @@ def imprimir(args):#argumentos: tipo
         print(saldo,precios,precio,precio+saldo)    
         while True:
             indice = random.choice(range(0,len(precios)))
-            print(indice,precios[indice])
             if precios[indice] == (-precio)+saldo:
                 break
         mensaje = tipo[indice]
@@ -353,7 +352,6 @@ def comparar_precios(monto,lista):
     if lista[1:] == []:
         return lista[0]
     else:
-        print(monto)
         return comparar_menor(abs(lista[0]-monto),comparar_precios(monto,lista[1:]))
 #comparar_menor(): compara dos numeros y retorna el menor
 def comparar_menor(x,y):
@@ -448,15 +446,15 @@ while running:
                 " ",comandos)
     if saldo<=monto:
         crear_texto('Dinero:'+str(saldo)+'/'+str(monto),consola_font,
-                    (255,255,255),14,(185,60),
+                    (255,255,255),10,(210,65),
                     " ",comandos)
     elif saldo<=monto+40:
         crear_texto('Dinero:'+str(saldo)+'/'+str(monto+40),consola_font,
-                    (255,255,255),14,(185,60),
+                    (255,255,255),10,(210,65),
                     " ",comandos)
     else:
         crear_texto('Dinero:'+str(saldo)+'/'+str(monto+60),consola_font,
-                    (255,255,255),14,(185,60),
+                    (255,255,255),10,(210,65),
                     " ",comandos)
     #Poniendo en pantalla
     contenedor.blit(boton1,boton1_rect)
