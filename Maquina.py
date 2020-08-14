@@ -181,7 +181,7 @@ def imprimir(args):#argumentos: tipo
         precio = precios[0]-monto
     indice = precios.index(precio+saldo)
     mensaje = tipo[indice]
-    print(saldo,precios,precio,precio+monto)
+    print(saldo,precios,precio,precio+saldo)
     print(mensaje)
     if saldo>=monto-precio:
         saldo-=monto+precio
