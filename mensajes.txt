@@ -59,8 +59,8 @@ Tipo	Codigo	Mensaje						Precio	Ventas	Imagen
 4	6	DJ						20	0	eng/img/Jokes/joke8.png
 4	7 	How clueless					20	0	eng/img/Jokes/joke9.png	
 4	8	Impressions					20	0	eng/img/Jokes/joke10.png
-4 	9	A great worker					60	0	eng/img/Jokes/joke2.png
-4	10	Baby Osama					80	0	eng/img/Jokes/joke3.png
+4 	9	A great worker					60	0	eng/img/Jokes/joke2.jpg
+4	10	Baby Osama					80	0	eng/img/Jokes/joke3.jpg
 5	1	A story						20	0	eng/img/Sayings/said1.jpg
 5	2	The tongue					20	0	eng/img/Sayings/said6.jpg
 5	3	Anthill						20	0	eng/img/Sayings/said2.jpg

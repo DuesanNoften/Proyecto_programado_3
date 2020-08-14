@@ -179,7 +179,7 @@ def imprimir(args):#argumentos: tipo
         precio = comparar_precios(monto,precios)
     else:
         precio = precios[0]-monto
-    indice = precios.index(precio+monto)
+    indice = precios.index(precio+saldo)
     mensaje = tipo[indice]
     print(mensaje)
     if saldo>=monto-precio:
@@ -297,7 +297,8 @@ def imprimir(args):#argumentos: tipo
                          +'\t'
                          +mensaje[3]
                          +'\t'
-                         +str(saldo+monto)
+                         +str(monto+saldo)
+                         +'\t'
                          +'\t'
                          +str(saldo))
         no_espacio = True
