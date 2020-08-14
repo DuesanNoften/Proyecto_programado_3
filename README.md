@@ -9,3 +9,5 @@ Se denotan los tipos que se hayaran en el mensaje.txt
 5=Sayings
 6=Tips
 
+El proyecto fue trabajado en python3
+Para la interfaz se utilizo pygame en su ultima version a la fecha 13/8/2020	

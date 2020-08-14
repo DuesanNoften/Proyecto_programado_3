@@ -62,43 +62,43 @@ Tipo	Codigo	Mensaje						Precio	Ventas	Imagen
 4 	9	A great worker					100	0	eng/img/Jokes/joke2.png
 4	10	Baby Osama					200	0	eng/img/Jokes/joke3.png
 5	1	A story						50	0	eng/img/Sayings/said1.jpg
-5	2	The tongue					50	0	eng/img/Sayings/said6
-5	3	Anthill						50	0	eng/img/Sayings/said2
-5	4	Think before vpw				50	0	eng/img/Sayings/said3
-5	5	Never despair					50	0	eng/img/Sayings/said4
-5	6	Learning					50	0	eng/img/Sayings/said20
-5	7	Eye,mind,spirit					50	0	eng/img/Sayings/said12
-5 	8	Ask						50	0	eng/img/Sayings/said13
-5	9	Tree						50	0	eng/img/Sayings/said14
-5	10	Don't let nest					50	0	eng/img/Sayings/said15
-5 	11	A store						50	0	eng/img/Sayings/said16
-5	12	Bird at hand					50	0	eng/img/Sayings/said17
-5	13	No one knows					50	0	eng/img/Sayings/said18
-5	14	A spoon>a pot					50	0	eng/img/Sayings/said19
-5	15	Minds						100	0	eng/img/Sayings/said5
-5 	16	Good harbor					100	0	eng/img/Sayings/said9
-5	17	The one who teaches				100	0	eng/img/Sayings/said11
-5	18	The generations					200	0	eng/img/Sayings/said8
-5 	19	Friction					200	0	eng/img/Sayings/said7
-5 	20	Smile						200	0	eng/img/Sayings/said10
-6	1	The reason					50	0	eng/img/Tips/tip1.png	
-6	2	Choose wisely					50	0	eng/img/Tips/tip2
-6	3	But						50	0	eng/img/Tips/tip6
-6	4	Straighten up					50	0	eng/img/Tips/tip7
-6	5	Look						50	0	eng/img/Tips/tip8
-6	6	The strenght of the tongue			50	0	eng/img/Tips/tip9
-6	7	The happy one					50	0	eng/img/Tips/tip10
-6 	8	The fight					50	0	eng/img/Tips/tip11
-6	9	Its not about					50	0	eng/img/Tips/tip14
-6	10	Be humble					50	0	eng/img/Tips/tip15
-6 	11	A friend					50	0	eng/img/Tips/tip16
-6	12	Be patient					50	0	eng/img/Tips/tip17
-6	13	Don't compare					50	0	eng/img/Tips/tip18
-6	14	Changes the how					50	0	eng/img/Tips/tip19
-6	15	The life					100	0	eng/img/Tips/tip13
-6 	16	The guilt					100	0	eng/img/Tips/tip12
-6	17	Be brave 					100	0	eng/img/Tips/tip3
-6	18	Don't criticize					200	0	eng/img/Tips/tip4
-6 	19	Who works					200	0	eng/img/Tips/tip5
-6 	20	Don't wait					200	0	eng/img/Tips/tip20
+5	2	The tongue					50	0	eng/img/Sayings/said6.jpg
+5	3	Anthill						50	0	eng/img/Sayings/said2.jpg
+5	4	Think before vpw				50	0	eng/img/Sayings/said3.jpg
+5	5	Never despair					50	0	eng/img/Sayings/said4.jpg
+5	6	Learning					50	0	eng/img/Sayings/said20.jpg
+5	7	Eye,mind,spirit					50	0	eng/img/Sayings/said12.jpg
+5 	8	Ask						50	0	eng/img/Sayings/said13.jpg
+5	9	Tree						50	0	eng/img/Sayings/said14.jpg
+5	10	Don't let nest					50	0	eng/img/Sayings/said15.jpg
+5 	11	A store						50	0	eng/img/Sayings/said16.jpg
+5	12	Bird at hand					50	0	eng/img/Sayings/said17.jpg
+5	13	No one knows					50	0	eng/img/Sayings/said18.jpg
+5	14	A spoon>a pot					50	0	eng/img/Sayings/said19.jpg
+5	15	Minds						100	0	eng/img/Sayings/said5.jpg
+5 	16	Good harbor					100	0	eng/img/Sayings/said9.jpg
+5	17	The one who teaches				100	0	eng/img/Sayings/said11.jpg
+5	18	The generations					200	0	eng/img/Sayings/said8.jpg
+5 	19	Friction					200	0	eng/img/Sayings/said7.jpg
+5 	20	Smile						200	0	eng/img/Sayings/said10.jpg
+6	1	The reason					50	0	eng/img/Tips/tip1.png
+6	2	Choose wisely					50	0	eng/img/Tips/tip2.jpg
+6	3	But						50	0	eng/img/Tips/tip6.jpg
+6	4	Straighten up					50	0	eng/img/Tips/tip7.jpg
+6	5	Look						50	0	eng/img/Tips/tip8.jpg
+6	6	The strenght of the tongue			50	0	eng/img/Tips/tip9.jpg
+6	7	The happy one					50	0	eng/img/Tips/tip10.jpg
+6 	8	The fight					50	0	eng/img/Tips/tip11.jpg
+6	9	Its not about					50	0	eng/img/Tips/tip14.jpg
+6	10	Be humble					50	0	eng/img/Tips/tip15.jpg
+6 	11	A friend					50	0	eng/img/Tips/tip16.jpg
+6	12	Be patient					50	0	eng/img/Tips/tip17.jpg
+6	13	Don't compare					50	0	eng/img/Tips/tip18.jpg
+6	14	Changes the how					50	0	eng/img/Tips/tip19.jpg
+6	15	The life					100	0	eng/img/Tips/tip13.jpg
+6 	16	The guilt					100	0	eng/img/Tips/tip12.jpg
+6	17	Be brave 					100	0	eng/img/Tips/tip3.jpg
+6	18	Don't criticize					200	0	eng/img/Tips/tip4.jpg
+6 	19	Who works					200	0	eng/img/Tips/tip5.jpg
+6 	20	Don't wait					200	0	eng/img/Tips/tip20.jpg
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
