@@ -183,8 +183,8 @@ def imprimir(args):#argumentos: tipo
     mensaje = tipo[indice]
     print(saldo,precios,precio,precio+saldo)
     print(mensaje)
-    if saldo>=monto-precio:
-        saldo-=monto+precio
+    if saldo>=precio:
+        saldo=precio
         #Animacion imprimir
         marco = pygame.Surface((260,100))
         marco.fill((255,255,255))
@@ -298,7 +298,7 @@ def imprimir(args):#argumentos: tipo
                          +'\t'
                          +mensaje[3]
                          +'\t'
-                         +str(monto+saldo)
+                         +str(precio+saldo)
                          +'\t'
                          +'\t'
                          +str(saldo))
