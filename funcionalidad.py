@@ -56,3 +56,39 @@ def string_replace(string,remplazado,remplazador):
         i+=1
     return nuevo_str
 
+#abrir_ventas(): abre el archivo ventas y hace la division de los datos
+def abrir_ventas():
+    archivo=open("ventas.txt","r")
+    texto_archivo=archivo.read()
+    archivo.close()
+    texto_archivo = texto_archivo.split('\n')
+    return texto_archivo
+
+#reiniciar_ventas(): abre el archivo ventas y borra la ventas realizadas
+def reiniciar_ventas():
+    archivo=open("ventas.txt","r")
+    texto_archivo=archivo.read()
+    archivo.close()
+    texto_archivo = texto_archivo.split('\n')
+    nuevo_texto = []
+    espacio = True
+    for texto in texto_archivo:
+        if texto:
+            if texto[0].isnumeric() and espacio:
+                nuevo_texto.append('')
+                espacio = False
+                continue
+            elif texto[0].isnumeric():
+                continue
+            else:
+                nuevo_texto.append(texto)
+    print(nuevo_texto)
+    largo = len(nuevo_texto)
+    archivo = open("ventas.txt","w")
+    for i in range(0,largo):
+        if i != largo-1:
+            archivo.write(nuevo_texto[i]+'\n')
+        else:
+            archivo.write(nuevo_texto[i])
+    archivo.close()
+    

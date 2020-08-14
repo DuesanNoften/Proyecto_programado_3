@@ -2,6 +2,7 @@ import pygame
 from Menu_class import *
 from funcionalidad import *
 from Dinero_class import *
+import datetime
 pygame.init()
 
 #Iniciando clock
@@ -75,7 +76,7 @@ lista_comandos = [Menu("Administracion",["Ctrñ:","Resetear","Reporte","Apagar"]
 seleccionando = False
 comando_actual = 1
 estado_actual = 0
-monto = 50
+monto = 20
 
 #Funcionalidades
 #apagar():para el ciclo
@@ -91,10 +92,11 @@ def traducir_ingles():
                       Menu("Language",["Español","English"]),
                       Menu("Message",["Advice","Joke","Saying"])]
     lista_comandos[0].buscar_estado("Shut Down").set_funcionalidad(apagar,[])
+    lista_comandos[0].buscar_estado("Reset").set_funcionalidad(reiniciar_ventas,[])
     lista_comandos[1].buscar_estado("Español").set_funcionalidad(traducir_espanol,[])
     lista_comandos[1].buscar_estado("English").set_funcionalidad(traducir_ingles,[])
     lista_comandos[0].buscar_estado("Pswd:").set_funcionalidad(contrasena,[])
-    lista_comandos[2].buscar_estado("Joke").set_funcionalidad(imprimir,[jokes,''])
+    lista_comandos[2].buscar_estado("Joke").set_funcionalidad(imprimir,[jokes,'1'])
     lista_comandos[2].buscar_estado("Advice").set_funcionalidad(imprimir,[advices,''])
     lista_comandos[2].buscar_estado("Saying").set_funcionalidad(imprimir,[sayings,''])
 #traducir_espanol(): cambia a lenguaje de los comandos a espanol
@@ -106,12 +108,14 @@ def traducir_espanol():
                   Menu("Idioma",["Español","English"]),
                   Menu("Mensaje",["Consejo","Chiste","Dicho"])]
     lista_comandos[0].buscar_estado("Apagar").set_funcionalidad(apagar,[])
+    lista_comandos[0].buscar_estado("Resetear").set_funcionalidad(reiniciar_ventas,[])
     lista_comandos[1].buscar_estado("Español").set_funcionalidad(traducir_espanol,[])
     lista_comandos[1].buscar_estado("English").set_funcionalidad(traducir_ingles,[])
     lista_comandos[0].buscar_estado("Ctrñ:").set_funcionalidad(contrasena,[])
     lista_comandos[2].buscar_estado("Chiste").set_funcionalidad(imprimir,[chistes,'esp'])
     lista_comandos[2].buscar_estado("Dicho").set_funcionalidad(imprimir,[dichos,'esp'])
     lista_comandos[2].buscar_estado("Consejo").set_funcionalidad(imprimir,[consejos,'esp'])
+    
 #contrasena():
 #E: lista de rectangulos
 #S: Recibe contraseña por medio de colisiones con los rectangulos con el mouse y retorna un bool
@@ -163,113 +167,159 @@ def imprimir(args):#argumentos: tipo
     global saldo
     global monto
     tipo,idioma = args
+    
+    #Consiguiendo el mensaje mas cercano
     precios = []
     for ele in tipo:
         if ele[3].isnumeric():
             if int(ele[3]) >= monto:
                 precios.append(int(ele[3]))
     if len(precios) != 1:
+        global precio
         precio = comparar_precios(monto,precios)
     else:
         precio = precios[0]-monto
     indice = precios.index(precio+monto)
     mensaje = tipo[indice]
     print(mensaje)
-
-    marco = pygame.Surface((260,100))
-    marco.fill((255,255,255))
-    marco.set_colorkey((255,255,255))
-    marco_rect = marco.get_rect()
-    marco_rect.topleft = (20,45)
-    papel = pygame.Surface((260,100))
-    papel.fill((241,238,228))
-    papel_rect = papel.get_rect()
-    papel_y = -marco.get_height()
-    print(papel_y)
-    papel_yreal = papel_y
-    papel_rect.topleft = (0,papel_y)
-    if idioma == 'esp':
-        crear_texto("Click aqui",
-                    papel_font,
-                    (0,0,0),30,
-                    (papel_rect.width//2,papel_rect.height//2),
-                    'centro',papel)
-    else:
-        crear_texto("Click here",
-                    papel_font,
-                    (0,0,0),30,
-                    (papel_rect.width//2,papel_rect.height//2),
-                    'centro',papel)
-
-    impresora = pygame.Surface((300,170))
-    impresora.fill((189,189,189))
-    pygame.draw.rect(impresora,(0,0,0),(20,35,260,25))
-    superficie_rect = impresora.get_rect()
-    superficie_rect.topleft = (180,110)
-
-    running = True
-    while running:
+    if saldo>=monto-precio:
+        saldo-=monto+precio
+        #Animacion imprimir
+        marco = pygame.Surface((260,100))
         marco.fill((255,255,255))
         marco.set_colorkey((255,255,255))
-        marco.blit(papel,papel_rect)
-        impresora.blit(marco,marco_rect)
-        pantalla.blit(impresora,superficie_rect)
-
-        if papel_yreal < 0:
-            papel_yreal += 2
-            papel_y = int(papel_yreal)
-            papel_rect.topleft = (0,papel_y)
-            print(papel_y,papel_yreal)
+        marco_rect = marco.get_rect()
+        marco_rect.topleft = (20,45)
+        papel = pygame.Surface((260,100))
+        papel.fill((241,238,228))
+        papel_rect = papel.get_rect()
+        papel_y = -marco.get_height()
+        papel_yreal = papel_y
+        papel_rect.topleft = (0,papel_y)
+        if idioma == 'esp':
+            crear_texto("Click aqui",
+                        papel_font,
+                        (0,0,0),30,
+                        (papel_rect.width//2,papel_rect.height//2),
+                        'centro',papel)
         else:
-            pass 
+            crear_texto("Click here",
+                        papel_font,
+                        (0,0,0),30,
+                        (papel_rect.width//2,papel_rect.height//2),
+                        'centro',papel)
 
-        for event in pygame.event.get():
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                mouse_pos = list(pygame.mouse.get_pos())
-                print(mouse_pos)
-                mouse_pos[0] -= 180
-                mouse_pos[1] -= 110
-                print(mouse_pos)
-                if marco_rect.collidepoint(mouse_pos):
-                    running = False
-                
-        pygame.display.update()
-        clock.tick(60)
+        impresora = pygame.Surface((300,170))
+        impresora.fill((189,189,189))
+        pygame.draw.rect(impresora,(0,0,0),(20,35,260,25))
+        superficie_rect = impresora.get_rect()
+        superficie_rect.topleft = (180,110)
 
-    marco = pygame.Surface((460,260))
-    marco.fill((241,238,228))
-    marco_rect = marco.get_rect()
-    marco_rect.topleft = (20,20)
-    papel = pygame.image.load(mensaje[5])
-    papel = pygame.transform.scale(papel,(400,200))
-    papel_rect = papel.get_rect()
-    papel_rect.midtop = (marco_rect.midtop[0]-20,30)
-    boton_salida = pygame.image.load('boton_salida.png').convert()
-    boton_salida.set_colorkey((255,255,255))
-    botons_rect = boton_salida.get_rect()
-    botons_rect.topleft = (marco_rect.width -(botons_rect.width+10),5)
+        running = True
+        while running:
+            marco.fill((255,255,255))
+            marco.set_colorkey((255,255,255))
+            marco.blit(papel,papel_rect)
+            impresora.blit(marco,marco_rect)
+            pantalla.blit(impresora,superficie_rect)
 
-    running = True
+            if papel_yreal < 0:
+                papel_yreal += 2
+                papel_y = int(papel_yreal)
+                papel_rect.topleft = (0,papel_y)
+            else:
+                pass 
 
-    while running:
-        marco.blit(boton_salida,botons_rect)
-        marco.blit(papel,papel_rect)
-        pantalla.blit(marco,marco_rect)
+            for event in pygame.event.get():
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    mouse_pos = list(pygame.mouse.get_pos())
+                    mouse_pos[0] -= 180
+                    mouse_pos[1] -= 110
+                    if marco_rect.collidepoint(mouse_pos):
+                        running = False
+                    
+            pygame.display.update()
+            clock.tick(60)
+        #Imprimiendo mensaje
+        marco = pygame.Surface((460,260))
+        marco.fill((241,238,228))
+        marco_rect = marco.get_rect()
+        marco_rect.topleft = (20,20)
+        papel = pygame.image.load(mensaje[5])
+        papel = pygame.transform.scale(papel,(400,200))
+        papel_rect = papel.get_rect()
+        papel_rect.midtop = (marco_rect.midtop[0]-20,30)
+        boton_salida = pygame.image.load('boton_salida.png').convert()
+        boton_salida.set_colorkey((255,255,255))
+        botons_rect = boton_salida.get_rect()
+        botons_rect.topleft = (marco_rect.width -(botons_rect.width+10),5)
 
-        for event in pygame.event.get():
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                mouse_pos = list(pygame.mouse.get_pos())
-                print(mouse_pos)
-                mouse_pos[0] -= botons_rect.topleft[0]
-                mouse_pos[1] -= botons_rect.topleft[1]
-                print(mouse_pos)
-                if marco_rect.collidepoint(mouse_pos):
-                    running = False
+        running = True
 
-        pygame.display.update()
-    saldo-=monto+precio
-    print(saldo)
+        while running:
+            marco.blit(boton_salida,botons_rect)
+            marco.blit(papel,papel_rect)
+            pantalla.blit(marco,marco_rect)
 
+            for event in pygame.event.get():
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    mouse_pos = list(pygame.mouse.get_pos())
+                    mouse_pos[0] -= botons_rect.topleft[0]
+                    mouse_pos[1] -= botons_rect.topleft[1]
+                    if marco_rect.collidepoint(mouse_pos):
+                        running = False
+
+            pygame.display.update()
+        print(saldo)
+        #Guardando venta en tabla de ventas
+        d=datetime.datetime.today()
+        d=str(d)[:16]
+        dt=d.split()
+        t=dt[1]
+        d=dt[0]
+        texto_ventas = abrir_ventas()
+        if not texto_ventas[4]:
+            transaccion = 1
+        else:
+            transaccion = len(texto_ventas)-4
+        string_venta = ''
+        string_venta += (f'{transaccion}'
+                         +'\t'
+                         +'  '
+                         +d
+                         +'\t'
+                         +t
+                         +'\t'
+                         +mensaje[0]
+                         +'\t'
+                         +mensaje[1]
+                         +'\t'
+                         +'\t'
+                         +mensaje[3]
+                         +'\t'
+                         +str(saldo+monto)
+                         +'\t'
+                         +str(saldo))
+        no_espacio = True
+        for i in range(0,len(texto_ventas)):
+            if not texto_ventas[i]:
+                texto_ventas[i] = string_venta
+                no_espacio = False
+                break
+        if no_espacio:
+            tmp = texto_ventas[-1]
+            texto_ventas[-1] = string_venta
+            texto_ventas.append(tmp)
+            
+        archivo_venta = open("ventas.txt","w")
+        largo = len(texto_ventas)
+        for i in range(0,largo):
+            if i != largo-1:
+                archivo_venta.write(texto_ventas[i]+'\n')
+            else:
+                archivo_venta.write(texto_ventas[i])
+        archivo_venta.close()
+    
 #comparar_precio(monto,lista)
 #E: un monti y la lista de mensajes
 #S: la menor diferencia entre el precio de los mensajes y el monto
@@ -290,6 +340,7 @@ def comparar_menor(x,y):
 #Asignando funcionalidades
 lista_comandos[0].buscar_estado("Ctrñ:").set_funcionalidad(contrasena,[])
 lista_comandos[0].buscar_estado("Apagar").set_funcionalidad(apagar,[])
+lista_comandos[0].buscar_estado("Resetear").set_funcionalidad(reiniciar_ventas,[])
 lista_comandos[1].buscar_estado("Español").set_funcionalidad(traducir_espanol,[])
 lista_comandos[1].buscar_estado("English").set_funcionalidad(traducir_ingles,[])
 
@@ -361,13 +412,23 @@ while running:
                 (255,255,255),
                 28,(5,5),
                 " ",comandos)
-    
     crear_texto(lista_comandos[comando_actual].get_estado(estado_actual).get_nombre(),
                 consola_font,
                 (255,255,255),
                 28,(5,45),
                 " ",comandos)
-
+    if saldo<=monto:
+        crear_texto('Dinero:'+str(saldo)+'/'+str(monto),consola_font,
+                    (255,255,255),14,(185,60),
+                    " ",comandos)
+    elif saldo<=monto+40:
+        crear_texto('Dinero:'+str(saldo)+'/'+str(monto+40),consola_font,
+                    (255,255,255),14,(185,60),
+                    " ",comandos)
+    else:
+        crear_texto('Dinero:'+str(saldo)+'/'+str(monto+60),consola_font,
+                    (255,255,255),14,(185,60),
+                    " ",comandos)
     #Poniendo en pantalla
     contenedor.blit(boton1,boton1_rect)
     contenedor.blit(boton0,boton0_rect)
@@ -395,9 +456,10 @@ while running:
         if event.type == pygame.MOUSEBUTTONDOWN:
             mouse_pos = pygame.mouse.get_pos()
             if hendija_rect.collidepoint(mouse_pos):
-                moneda.posx,moneda.posy=mouse_pos
-                saldo += moneda.valor
-                print(saldo)
+                if saldo<80:
+                    moneda.posx,moneda.posy=mouse_pos
+                    saldo += moneda.valor
+                    print(saldo)
                 
             if boton1_rect.collidepoint(mouse_pos):
                 if seleccionando == False:
@@ -405,7 +467,9 @@ while running:
                     estado_tmp = estado_actual
                     estado_actual = 0
                     if idioma == 'esp':
+
                         lista_comandos[comando_actual].transicion1()
+
                     else:
                         lista_comandos[comando_actual].transicion2()
                     break
