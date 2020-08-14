@@ -340,6 +340,7 @@ def imprimir(args):#argumentos: tipo
             archivo_venta.close()
             print(run)
             print (saldo)
+            saldo=0
     else:
         pass
     
