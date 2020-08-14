@@ -12,6 +12,13 @@ clock = pygame.time.Clock()
 #Creando la variable saldo, para su uso
 global saldo
 saldo=0
+
+#Creando la variable global posvx y posvy
+global posvx, posvy
+posvx=50
+posvy=600
+
+
 #Iniciando pantalla
 pantalla = pygame.display.set_mode((700,300))
 pygame.display.set_caption("Advice Machine")
@@ -167,8 +174,9 @@ def contrasena(args):#argumentos:recs,menu,estado
 def imprimir(args):#argumentos: tipo
     global saldo
     global monto
+    global posvx,posvy
     tipo,idioma = args
-
+    run=True
     if saldo > 0:
         #Consiguiendo el mensaje mas cercano
         precios = []
@@ -192,6 +200,9 @@ def imprimir(args):#argumentos: tipo
         print(mensaje)
         if saldo>=precio:
             saldo=precio
+            if saldo>0:
+                posvx=50
+                posvy=255
             #Animacion imprimir
             marco = pygame.Surface((260,100))
             marco.fill((255,255,255))
@@ -328,6 +339,8 @@ def imprimir(args):#argumentos: tipo
                 else:
                     archivo_venta.write(texto_ventas[i])
             archivo_venta.close()
+            print(run)
+            print (saldo)
     else:
         pass
     
@@ -384,6 +397,10 @@ while running:
     impresora.fill((189,189,189))
     impresora_rect = impresora.get_rect()
     impresora_rect.topleft = (170,100)
+
+    #ubicando hitbox monedas
+    moneda.vuelto_rect.centerx=100
+    moneda.vuelto_rect.centery=260
 
     #Creando bandeja con dinero
     bandejas=pygame.Surface((300,290))
@@ -460,7 +477,7 @@ while running:
     pantalla.blit(bandejas,bandejas_rect)
     pantalla.blit(bandeja,bandeja_rect)
     
-
+    pantalla.blit(moneda.vuelto,(posvx, posvy))
     
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -472,6 +489,9 @@ while running:
                     moneda.posx,moneda.posy=mouse_pos
                     saldo += moneda.valor
                     print(saldo)
+            if moneda.vuelto_rect.collidepoint(mouse_pos):
+                posvx=50
+                posvy=600
                 
             if boton1_rect.collidepoint(mouse_pos):
                 if seleccionando == False:
