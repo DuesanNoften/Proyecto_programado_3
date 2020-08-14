@@ -2,6 +2,7 @@ import pygame
 from Menu_class import *
 from funcionalidad import *
 from Dinero_class import *
+import datetime
 pygame.init()
 
 #Iniciando clock
@@ -88,6 +89,7 @@ def traducir_ingles():
                       Menu("Language",["Español","English"]),
                       Menu("Message",["Advice","Joke","Saying"])]
     lista_comandos[0].buscar_estado("Shut Down").set_funcionalidad(apagar,[])
+    lista_comandos[0].buscar_estado("Reset").set_funcionalidad(reiniciar_ventas,[])
     lista_comandos[1].buscar_estado("Español").set_funcionalidad(traducir_espanol,[])
     lista_comandos[1].buscar_estado("English").set_funcionalidad(traducir_ingles,[])
     lista_comandos[0].buscar_estado("Pswd:").set_funcionalidad(contrasena,[])
@@ -103,12 +105,14 @@ def traducir_espanol():
                   Menu("Idioma",["Español","English"]),
                   Menu("Mensaje",["Consejo","Chiste","Dicho"])]
     lista_comandos[0].buscar_estado("Apagar").set_funcionalidad(apagar,[])
+    lista_comandos[0].buscar_estado("Resetear").set_funcionalidad(reiniciar_ventas,[])
     lista_comandos[1].buscar_estado("Español").set_funcionalidad(traducir_espanol,[])
     lista_comandos[1].buscar_estado("English").set_funcionalidad(traducir_ingles,[])
     lista_comandos[0].buscar_estado("Ctrñ:").set_funcionalidad(contrasena,[])
     lista_comandos[2].buscar_estado("Chiste").set_funcionalidad(imprimir,[chistes,'esp'])
     lista_comandos[2].buscar_estado("Dicho").set_funcionalidad(imprimir,[dichos,'esp'])
     lista_comandos[2].buscar_estado("Consejo").set_funcionalidad(imprimir,[consejos,'esp'])
+    
 #contrasena():
 #E: lista de rectangulos
 #S: Recibe contraseña por medio de colisiones con los rectangulos con el mouse y retorna un bool
@@ -157,8 +161,11 @@ def contrasena(args):#argumentos:recs,menu,estado
 #S: Se escoge el mensaje con el precio mas cercano al monto actual y se imprime en la superficie
 #R: -
 def imprimir(args):#argumentos: tipo
+    
     global monto
     tipo,idioma = args
+    
+    #Consiguiendo el mensaje mas cercano
     precios = []
     for ele in tipo:
         if ele[3].isnumeric():
@@ -172,6 +179,7 @@ def imprimir(args):#argumentos: tipo
     mensaje = tipo[indice]
     print(mensaje)
 
+    #Animacion imprimir
     marco = pygame.Surface((260,100))
     marco.fill((255,255,255))
     marco.set_colorkey((255,255,255))
@@ -181,7 +189,6 @@ def imprimir(args):#argumentos: tipo
     papel.fill((241,238,228))
     papel_rect = papel.get_rect()
     papel_y = -marco.get_height()
-    print(papel_y)
     papel_yreal = papel_y
     papel_rect.topleft = (0,papel_y)
     if idioma == 'esp':
@@ -215,23 +222,20 @@ def imprimir(args):#argumentos: tipo
             papel_yreal += 2
             papel_y = int(papel_yreal)
             papel_rect.topleft = (0,papel_y)
-            print(papel_y,papel_yreal)
         else:
             pass 
 
         for event in pygame.event.get():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 mouse_pos = list(pygame.mouse.get_pos())
-                print(mouse_pos)
                 mouse_pos[0] -= 180
                 mouse_pos[1] -= 110
-                print(mouse_pos)
                 if marco_rect.collidepoint(mouse_pos):
                     running = False
                 
         pygame.display.update()
         clock.tick(60)
-
+    #Imprimiendo mensaje
     marco = pygame.Surface((460,260))
     marco.fill((241,238,228))
     marco_rect = marco.get_rect()
@@ -255,15 +259,61 @@ def imprimir(args):#argumentos: tipo
         for event in pygame.event.get():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 mouse_pos = list(pygame.mouse.get_pos())
-                print(mouse_pos)
                 mouse_pos[0] -= botons_rect.topleft[0]
                 mouse_pos[1] -= botons_rect.topleft[1]
-                print(mouse_pos)
                 if marco_rect.collidepoint(mouse_pos):
                     running = False
 
         pygame.display.update()
-
+    #Guardando venta en tabla de ventas
+    d=datetime.datetime.today()
+    d=str(d)[:16]
+    dt=d.split()
+    t=dt[1]
+    d=dt[0]
+    texto_ventas = abrir_ventas()
+    if not texto_ventas[4]:
+        transaccion = 1
+    else:
+        transaccion = len(texto_ventas)-4
+    string_venta = ''
+    string_venta += (f'{transaccion}'
+                     +'\t'
+                     +'  '
+                     +d
+                     +'\t'
+                     +t
+                     +'\t'
+                     +mensaje[0]
+                     +'\t'
+                     +mensaje[1]
+                     +'\t'
+                     +'\t'
+                     +mensaje[3]
+                     +'\t'
+                     +str(monto)
+                     +'\t'
+                     +str(precio))
+    no_espacio = True
+    for i in range(0,len(texto_ventas)):
+        if not texto_ventas[i]:
+            texto_ventas[i] = string_venta
+            no_espacio = False
+            break
+    if no_espacio:
+        tmp = texto_ventas[-1]
+        texto_ventas[-1] = string_venta
+        texto_ventas.append(tmp)
+        
+    archivo_venta = open("ventas.txt","w")
+    largo = len(texto_ventas)
+    for i in range(0,largo):
+        if i != largo-1:
+            archivo_venta.write(texto_ventas[i]+'\n')
+        else:
+            archivo_venta.write(texto_ventas[i])
+    archivo_venta.close()
+    
 #comparar_precio(monto,lista)
 #E: un monti y la lista de mensajes
 #S: la menor diferencia entre el precio de los mensajes y el monto
@@ -284,6 +334,7 @@ def comparar_menor(x,y):
 #Asignando funcionalidades
 lista_comandos[0].buscar_estado("Ctrñ:").set_funcionalidad(contrasena,[])
 lista_comandos[0].buscar_estado("Apagar").set_funcionalidad(apagar,[])
+lista_comandos[0].buscar_estado("Resetear").set_funcionalidad(reiniciar_ventas,[])
 lista_comandos[1].buscar_estado("Español").set_funcionalidad(traducir_espanol,[])
 lista_comandos[1].buscar_estado("English").set_funcionalidad(traducir_ingles,[])
 

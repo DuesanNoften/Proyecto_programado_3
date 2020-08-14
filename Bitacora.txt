@@ -34,3 +34,8 @@ Traduciendo imagenes (2 horas)
 12-8-2020:
 Traduciendo más imagenes y creando imagenes con los chistes que no poseen imagen (1 hora 30 min)
 
+13-8-2020:
+Version funcional de la impresion de imagenes(2 horas y media)
+Investigacion para manejar los documentos de texto  y conseguir la fecha y hora(40 min)
+Se incluyo el sistema de guardado en la tabla de ventas y la funcion de resetear(2 horas)
+
