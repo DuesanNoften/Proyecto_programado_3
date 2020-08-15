@@ -494,26 +494,18 @@ def imprimir_reporte(args): #args():idioma
     running = True
 
     while running:
+        fondo = pygame.Surface((460,260))
+        fondo.fill((241,238,228))
         marco.blit(texto_imprimido,texto_rect)
         fondo.blit(marco,marco_rect)
         pantalla.blit(fondo,fondo_rect)
 
         for event in pygame.event.get():
             if event.type == pygame.MOUSEBUTTONDOWN:
-                print("Y")
                 pass
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_UP:
-                    print("Y")
-                    x,y = texto_rect.topleft
-                    y-=texto_rect.height
-                    texto_rect.topleft = (x,y)
-                if event.key == pygame.K_DOWN:
-                    print("Y")
-                    x,y = texto_rect.topleft
-                    y+=texto_rect.height
-                    texto_rect.topleft = (x,y)
-           
+                if event.key == pygame.K_ESCAPE:
+                    running = False
             
         pygame.display.update()
         clock.tick(60)
