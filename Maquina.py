@@ -4,6 +4,7 @@ from funcionalidad import *
 from Dinero_class import *
 import datetime
 import random
+import time
 pygame.init()
 
 #Iniciando clock
@@ -198,8 +199,10 @@ def imprimir(args):#argumentos: tipo
         mensaje = tipo[indice]
         print(mensaje)
         if saldo>=precio:
+            pygame.mixer.music.load('moneda/sonido/monedas_1.mp3')
             saldo=precio
             if saldo>0:
+                pygame.mixer.music.play()
                 posvx=50
                 posvy=255
             #Animacion imprimir
@@ -315,7 +318,7 @@ def imprimir(args):#argumentos: tipo
                              +'\t'
                              +mensaje[3]
                              +'\t'
-                             +str(precio+saldo)
+                             +str(int(mensaje[3])+saldo)
                              +'\t'
                              +'\t'
                              +str(saldo))
@@ -383,10 +386,11 @@ while running:
     espacio_monedas.fill((189,189,189))
     espacio_monedas_rect = espacio_monedas.get_rect()
     espacio_monedas_rect.topleft = (10,10)
-    hendija=pygame.Surface((10,90))
-    hendija.fill((0,0,0))
+    hendija=pygame.Surface((100,90))
+    hendija.fill((255,255,255))
+    hendija.set_colorkey((255,255,255))
     hendija_rect=hendija.get_rect()
-    hendija_rect.centerx= 90
+    hendija_rect.centerx= 70
     hendija_rect.centery= 80
     pygame.draw.circle(espacio_monedas,(224,224,224),(75,60),50,0)
     pygame.draw.rect(espacio_monedas,(0,0,0),(70,15,10,90))
@@ -485,7 +489,9 @@ while running:
             mouse_pos = pygame.mouse.get_pos()
             if hendija_rect.collidepoint(mouse_pos):
                 if saldo<80:
-                    moneda.posx,moneda.posy=mouse_pos
+                    pygame.mixer.music.load('moneda/sonido/MONEYWIN.wav')
+                    pygame.mixer.music.play()
+                    moneda.posx,moneda.posy=87,35
                     saldo += moneda.valor
                     print(saldo)
             if moneda.vuelto_rect.collidepoint(mouse_pos):
@@ -543,7 +549,10 @@ while running:
                         else:
                             estado_actual = estado_tmp + 1
                     break
-              
+        if event.type == pygame.MOUSEBUTTONUP:
+            if saldo<=80:
+                time.sleep(1.001)
+                moneda.posx,moneda.posy=87,600
     pygame.display.update()
     clock.tick(60)
     
