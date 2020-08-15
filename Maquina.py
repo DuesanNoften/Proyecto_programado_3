@@ -10,7 +10,7 @@ pygame.init()
 
 #Iniciando clock
 clock = pygame.time.Clock()
-
+pygame.mixer.set_num_channels(8)
 #Creando la variable saldo, para su uso
 global saldo
 saldo=0
@@ -186,23 +186,20 @@ def imprimir(args):#argumentos: tipo
             if ele[3].isnumeric():
                 if int(ele[3]) <= saldo:
                     precios.append(int(ele[3]))
-        print(precios)
         if len(precios) != 1:
             global precio
             precio = comparar_precios(saldo,precios)
         else:
-            precio = precios[0]-saldo
-        print(saldo,precios,precio,precio+saldo)    
+            precio = precios[0]-saldo   
         while True:
             indice = random.choice(range(0,len(precios)))
             if precios[indice] == (-precio)+saldo:
                 break
         mensaje = tipo[indice]
-        print(mensaje)
         if saldo>=precio:
-            pygame.mixer.music.load('moneda/sonido/monedas_1.mp3')
             saldo=precio
             if saldo>0:
+                pygame.mixer.music.load('moneda/sonido/monedas_1.mp3')
                 pygame.mixer.music.play()
                 posvx=50
                 posvy=255
@@ -294,7 +291,7 @@ def imprimir(args):#argumentos: tipo
                             running = False
 
                 pygame.display.update()
-            print(saldo)
+            
             #Guardando venta en tabla de ventas
             d=datetime.datetime.today()
             d=str(d)[:16]
@@ -344,8 +341,6 @@ def imprimir(args):#argumentos: tipo
                 else:
                     archivo_venta.write(texto_ventas[i])
             archivo_venta.close()
-            print(run)
-            print (saldo)
             saldo=0
     else:
         pass
@@ -373,7 +368,6 @@ def comparar_menor(x,y):
 #R: -
 def imprimir_reporte(args): #args():idioma
     #Animacion imprimir
-    print('Wii')
     idioma = 'esp'
     marco = pygame.Surface((260,100))
     marco.fill((255,255,255))
@@ -507,17 +501,12 @@ def imprimir_reporte(args): #args():idioma
         pantalla.blit(fondo,fondo_rect)
 
         for event in pygame.event.get():
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                print("Y")
-                pass
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_UP:
-                    print("Y")
                     x,y = texto_rect.topleft
                     y-=texto_rect.height
                     texto_rect.topleft = (x,y)
                 if event.key == pygame.K_DOWN:
-                    print("Y")
                     x,y = texto_rect.topleft
                     y+=texto_rect.height
                     texto_rect.topleft = (x,y)
@@ -655,7 +644,6 @@ while running:
                     pygame.mixer.music.play()
                     moneda.posx,moneda.posy=87,35
                     saldo += moneda.valor
-                    print(saldo)
             if moneda.vuelto_rect.collidepoint(mouse_pos):
                 posvx=50
                 posvy=600
