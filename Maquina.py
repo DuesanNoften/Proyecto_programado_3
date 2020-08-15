@@ -103,9 +103,10 @@ def traducir_ingles():
                       Menu("Message",["Advice","Joke","Saying"])]
     lista_comandos[0].buscar_estado("Shut Down").set_funcionalidad(apagar,[])
     lista_comandos[0].buscar_estado("Reset").set_funcionalidad(reiniciar_ventas,[])
+    lista_comandos[0].buscar_estado("Report").set_funcionalidad(imprimir_reporte,[''])
+    lista_comandos[0].buscar_estado("Pswd:").set_funcionalidad(contrasena,[])
     lista_comandos[1].buscar_estado("Español").set_funcionalidad(traducir_espanol,[])
     lista_comandos[1].buscar_estado("English").set_funcionalidad(traducir_ingles,[])
-    lista_comandos[0].buscar_estado("Pswd:").set_funcionalidad(contrasena,[])
     lista_comandos[2].buscar_estado("Joke").set_funcionalidad(imprimir,[jokes,'1'])
     lista_comandos[2].buscar_estado("Advice").set_funcionalidad(imprimir,[advices,''])
     lista_comandos[2].buscar_estado("Saying").set_funcionalidad(imprimir,[sayings,''])
@@ -119,9 +120,10 @@ def traducir_espanol():
                   Menu("Mensaje",["Consejo","Chiste","Dicho"])]
     lista_comandos[0].buscar_estado("Apagar").set_funcionalidad(apagar,[])
     lista_comandos[0].buscar_estado("Resetear").set_funcionalidad(reiniciar_ventas,[])
+    lista_comandos[0].buscar_estado("Reporte").set_funcionalidad(imprimir_reporte,['esp'])
+    lista_comandos[0].buscar_estado("Ctrñ:").set_funcionalidad(contrasena,[])
     lista_comandos[1].buscar_estado("Español").set_funcionalidad(traducir_espanol,[])
     lista_comandos[1].buscar_estado("English").set_funcionalidad(traducir_ingles,[])
-    lista_comandos[0].buscar_estado("Ctrñ:").set_funcionalidad(contrasena,[])
     lista_comandos[2].buscar_estado("Chiste").set_funcionalidad(imprimir,[chistes,'esp'])
     lista_comandos[2].buscar_estado("Dicho").set_funcionalidad(imprimir,[dichos,'esp'])
     lista_comandos[2].buscar_estado("Consejo").set_funcionalidad(imprimir,[consejos,'esp'])
