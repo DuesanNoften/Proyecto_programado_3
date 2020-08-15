@@ -12,6 +12,13 @@ clock = pygame.time.Clock()
 #Creando la variable saldo, para su uso
 global saldo
 saldo=0
+
+#Creando la variable global posvx y posvy
+global posvx, posvy
+posvx=50
+posvy=600
+
+
 #Iniciando pantalla
 pantalla = pygame.display.set_mode((700,300))
 pygame.display.set_caption("Advice Machine")
@@ -94,9 +101,10 @@ def traducir_ingles():
                       Menu("Message",["Advice","Joke","Saying"])]
     lista_comandos[0].buscar_estado("Shut Down").set_funcionalidad(apagar,[])
     lista_comandos[0].buscar_estado("Reset").set_funcionalidad(reiniciar_ventas,[])
+    lista_comandos[0].buscar_estado("Report").set_funcionalidad(imprimir_reporte,[''])
+    lista_comandos[0].buscar_estado("Pswd:").set_funcionalidad(contrasena,[])
     lista_comandos[1].buscar_estado("Español").set_funcionalidad(traducir_espanol,[])
     lista_comandos[1].buscar_estado("English").set_funcionalidad(traducir_ingles,[])
-    lista_comandos[0].buscar_estado("Pswd:").set_funcionalidad(contrasena,[])
     lista_comandos[2].buscar_estado("Joke").set_funcionalidad(imprimir,[jokes,'1'])
     lista_comandos[2].buscar_estado("Advice").set_funcionalidad(imprimir,[advices,''])
     lista_comandos[2].buscar_estado("Saying").set_funcionalidad(imprimir,[sayings,''])
@@ -110,9 +118,10 @@ def traducir_espanol():
                   Menu("Mensaje",["Consejo","Chiste","Dicho"])]
     lista_comandos[0].buscar_estado("Apagar").set_funcionalidad(apagar,[])
     lista_comandos[0].buscar_estado("Resetear").set_funcionalidad(reiniciar_ventas,[])
+    lista_comandos[0].buscar_estado("Reporte").set_funcionalidad(imprimir_reporte,['esp'])
+    lista_comandos[0].buscar_estado("Ctrñ:").set_funcionalidad(contrasena,[])
     lista_comandos[1].buscar_estado("Español").set_funcionalidad(traducir_espanol,[])
     lista_comandos[1].buscar_estado("English").set_funcionalidad(traducir_ingles,[])
-    lista_comandos[0].buscar_estado("Ctrñ:").set_funcionalidad(contrasena,[])
     lista_comandos[2].buscar_estado("Chiste").set_funcionalidad(imprimir,[chistes,'esp'])
     lista_comandos[2].buscar_estado("Dicho").set_funcionalidad(imprimir,[dichos,'esp'])
     lista_comandos[2].buscar_estado("Consejo").set_funcionalidad(imprimir,[consejos,'esp'])
@@ -160,15 +169,16 @@ def contrasena(args):#argumentos:recs,menu,estado
     comandos.blit(ctrn_surface,ctrn_rect)
     return correcta
 
-#imprimir(tipo)
-#E: lista de los mensajes que se pueden imprimir
+#imprimir(args)
+#E: lista de los mensajes que se pueden imprimir y el idioma
 #S: Se escoge el mensaje con el precio mas cercano al monto actual y se imprime en la superficie
 #R: -
-def imprimir(args):#argumentos: tipo
+def imprimir(args):#argumentos: tipo,idioma
     global saldo
     global monto
+    global posvx,posvy
     tipo,idioma = args
-
+    run=True
     if saldo > 0:
         #Consiguiendo el mensaje mas cercano
         precios = []
@@ -192,6 +202,9 @@ def imprimir(args):#argumentos: tipo
         tmp = saldo
         if saldo>=precio:
             saldo=precio
+            if saldo>0:
+                posvx=50
+                posvy=255
             #Animacion imprimir
             marco = pygame.Surface((260,100))
             marco.fill((255,255,255))
@@ -329,6 +342,9 @@ def imprimir(args):#argumentos: tipo
                 else:
                     archivo_venta.write(texto_ventas[i])
             archivo_venta.close()
+            print(run)
+            print (saldo)
+            saldo=0
     else:
         pass
     
@@ -348,11 +364,113 @@ def comparar_menor(x,y):
         return y
     else:
         return x
-                
+    
+#imprimir_reporte(args)
+#E: idioma
+#S: Imprime un reporte de las ventas
+#R: -
+def imprimir_reporte(args): #args():idioma
+    #Animacion imprimir
+    idioma = 'esp'
+    marco = pygame.Surface((260,100))
+    marco.fill((255,255,255))
+    marco.set_colorkey((255,255,255))
+    marco_rect = marco.get_rect()
+    marco_rect.topleft = (20,45)
+    papel = pygame.Surface((260,100))
+    papel.fill((241,238,228))
+    papel_rect = papel.get_rect()
+    papel_y = -marco.get_height()
+    papel_yreal = papel_y
+    papel_rect.topleft = (0,papel_y)
+    if idioma == 'esp':
+        crear_texto("Click aqui",
+        papel_font,
+        (0,0,0),30,
+        (papel_rect.width//2,papel_rect.height//2),
+        'centro',papel)
+    else:
+        crear_texto("Click here",
+        papel_font,
+        (0,0,0),30,
+        (papel_rect.width//2,papel_rect.height//2),
+        'centro',papel)
+    impresora = pygame.Surface((300,170))
+    impresora.fill((189,189,189))
+    pygame.draw.rect(impresora,(0,0,0),(20,35,260,25))
+    superficie_rect = impresora.get_rect()
+    superficie_rect.topleft = (180,110)
+
+    running = True
+    while running:
+        marco.fill((255,255,255))
+        marco.set_colorkey((255,255,255))
+        marco.blit(papel,papel_rect)
+        impresora.blit(marco,marco_rect)
+        pantalla.blit(impresora,superficie_rect)
+
+        if papel_yreal < 0:
+            papel_yreal += 2
+            papel_y = int(papel_yreal)
+            papel_rect.topleft = (0,papel_y)
+        else:
+            pass 
+
+            for event in pygame.event.get():
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    mouse_pos = list(pygame.mouse.get_pos())
+                    mouse_pos[0] -= 180
+                    mouse_pos[1] -= 110
+                    if marco_rect.collidepoint(mouse_pos):
+                        running = False
+                        
+        pygame.display.update()
+        clock.tick(60)
+
+    #Imprimiendo mensaje
+    fondo = pygame.Surface((460,260))
+    fondo.fill((241,238,228))
+    fondo_rect = fondo.get_rect()
+    fondo_rect.topleft = (20,20)
+
+    marco = pygame.Surface((400,200))
+    marco_rect = marco.get_rect()
+    marco_rect.midtop = (marco_rect.midtop[0]+30,30)
+    marco.fill((0,0,0))
+
+    texto = pygame.Surface((400,200))
+    texto_rect = texto.get_rect()
+    texto_rect.topleft = (0,0)
+
+    texto_archivo = abrir_mensajes()
+    mensajes_vendidos = []
+    for mensaje in texto_archivo:
+        if mensaje:
+            if mensaje[4] != '0' and mensaje[4].isnumeric():
+                mensajes_vendidos.append(mensaje)
+
+    texto_imprimir = [['Tipo','Coddigo','Mensaje','Mensajes Vendidos','Monto ventas']]
+
+    print(mensajes_vendidos)
+
+    running = True
+
+    while running:
+        fondo.blit(marco,marco_rect)
+        pantalla.blit(fondo,fondo_rect)
+
+        for event in pygame.event.get():
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                pass
+            
+        pygame.display.update()
+        
+
 #Asignando funcionalidades
 lista_comandos[0].buscar_estado("Ctrñ:").set_funcionalidad(contrasena,[])
 lista_comandos[0].buscar_estado("Apagar").set_funcionalidad(apagar,[])
 lista_comandos[0].buscar_estado("Resetear").set_funcionalidad(reiniciar_ventas,[])
+lista_comandos[0].buscar_estado("Reporte").set_funcionalidad(imprimir_reporte,['esp'])
 lista_comandos[1].buscar_estado("Español").set_funcionalidad(traducir_espanol,[])
 lista_comandos[1].buscar_estado("English").set_funcionalidad(traducir_ingles,[])
 
@@ -384,6 +502,10 @@ while running:
     impresora.fill((189,189,189))
     impresora_rect = impresora.get_rect()
     impresora_rect.topleft = (170,100)
+
+    #ubicando hitbox monedas
+    moneda.vuelto_rect.centerx=100
+    moneda.vuelto_rect.centery=260
 
     #Creando bandeja con dinero
     bandejas=pygame.Surface((300,290))
@@ -460,7 +582,7 @@ while running:
     pantalla.blit(bandejas,bandejas_rect)
     pantalla.blit(bandeja,bandeja_rect)
     
-
+    pantalla.blit(moneda.vuelto,(posvx, posvy))
     
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -472,6 +594,9 @@ while running:
                     moneda.posx,moneda.posy=mouse_pos
                     saldo += moneda.valor
                     print(saldo)
+            if moneda.vuelto_rect.collidepoint(mouse_pos):
+                posvx=50
+                posvy=600
                 
             if boton1_rect.collidepoint(mouse_pos):
                 if seleccionando == False:

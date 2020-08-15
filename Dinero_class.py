@@ -19,6 +19,8 @@ class Dinero:
         self.rect=self.image.get_rect()
         self.lado=pygame.image.load('moneda/lado.png')
         self.rectl=self.lado.get_rect()
+        self.vuelto=pygame.image.load('moneda/Vuelto.png')
+        self.vuelto_rect=self.vuelto.get_rect()
         self.posx=550
         self.posy=250
 moneda=Dinero()
