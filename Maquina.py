@@ -447,6 +447,11 @@ def imprimir_reporte(args): #args():idioma
     texto_imprimido.set_colorkey((255,255,255))
     texto_rect = texto_imprimido.get_rect()
     texto_rect.topleft = (0,0)
+    
+    boton_salida = pygame.image.load('boton_salida.png').convert()
+    boton_salida.set_colorkey((255,255,255))
+    botons_rect = boton_salida.get_rect()
+    botons_rect.topleft = (marco_rect.width -(botons_rect.width+10),0)
 
     texto_archivo = abrir_mensajes()
     mensajes_vendidos = []
@@ -503,6 +508,7 @@ def imprimir_reporte(args): #args():idioma
 lista_comandos[0].buscar_estado("Ctrñ:").set_funcionalidad(contrasena,[])
 lista_comandos[0].buscar_estado("Apagar").set_funcionalidad(apagar,[])
 lista_comandos[0].buscar_estado("Resetear").set_funcionalidad(reiniciar_ventas,[])
+lista_comandos[0].buscar_estado("Reporte").set_funcionalidad(imprimir_reporte,['esp'])
 lista_comandos[1].buscar_estado("Español").set_funcionalidad(traducir_espanol,[])
 lista_comandos[1].buscar_estado("English").set_funcionalidad(traducir_ingles,[])
 
