@@ -4,11 +4,13 @@ from funcionalidad import *
 from Dinero_class import *
 import datetime
 import random
+import time
+import threading
 pygame.init()
 
 #Iniciando clock
 clock = pygame.time.Clock()
-
+pygame.mixer.set_num_channels(8)
 #Creando la variable saldo, para su uso
 global saldo
 saldo=0
@@ -101,10 +103,9 @@ def traducir_ingles():
                       Menu("Message",["Advice","Joke","Saying"])]
     lista_comandos[0].buscar_estado("Shut Down").set_funcionalidad(apagar,[])
     lista_comandos[0].buscar_estado("Reset").set_funcionalidad(reiniciar_ventas,[])
-    lista_comandos[0].buscar_estado("Report").set_funcionalidad(imprimir_reporte,[''])
-    lista_comandos[0].buscar_estado("Pswd:").set_funcionalidad(contrasena,[])
     lista_comandos[1].buscar_estado("Español").set_funcionalidad(traducir_espanol,[])
     lista_comandos[1].buscar_estado("English").set_funcionalidad(traducir_ingles,[])
+    lista_comandos[0].buscar_estado("Pswd:").set_funcionalidad(contrasena,[])
     lista_comandos[2].buscar_estado("Joke").set_funcionalidad(imprimir,[jokes,'1'])
     lista_comandos[2].buscar_estado("Advice").set_funcionalidad(imprimir,[advices,''])
     lista_comandos[2].buscar_estado("Saying").set_funcionalidad(imprimir,[sayings,''])
@@ -118,10 +119,9 @@ def traducir_espanol():
                   Menu("Mensaje",["Consejo","Chiste","Dicho"])]
     lista_comandos[0].buscar_estado("Apagar").set_funcionalidad(apagar,[])
     lista_comandos[0].buscar_estado("Resetear").set_funcionalidad(reiniciar_ventas,[])
-    lista_comandos[0].buscar_estado("Reporte").set_funcionalidad(imprimir_reporte,['esp'])
-    lista_comandos[0].buscar_estado("Ctrñ:").set_funcionalidad(contrasena,[])
     lista_comandos[1].buscar_estado("Español").set_funcionalidad(traducir_espanol,[])
     lista_comandos[1].buscar_estado("English").set_funcionalidad(traducir_ingles,[])
+    lista_comandos[0].buscar_estado("Ctrñ:").set_funcionalidad(contrasena,[])
     lista_comandos[2].buscar_estado("Chiste").set_funcionalidad(imprimir,[chistes,'esp'])
     lista_comandos[2].buscar_estado("Dicho").set_funcionalidad(imprimir,[dichos,'esp'])
     lista_comandos[2].buscar_estado("Consejo").set_funcionalidad(imprimir,[consejos,'esp'])
@@ -170,10 +170,10 @@ def contrasena(args):#argumentos:recs,menu,estado
     return correcta
 
 #imprimir(args)
-#E: lista de los mensajes que se pueden imprimir y el idioma
+#E: lista de los mensajes que se pueden imprimir
 #S: Se escoge el mensaje con el precio mas cercano al monto actual y se imprime en la superficie
 #R: -
-def imprimir(args):#argumentos: tipo,idioma
+def imprimir(args):#argumentos: tipo
     global saldo
     global monto
     global posvx,posvy
@@ -186,23 +186,22 @@ def imprimir(args):#argumentos: tipo,idioma
             if ele[3].isnumeric():
                 if int(ele[3]) <= saldo:
                     precios.append(int(ele[3]))
-        print(precios)
         if len(precios) != 1:
             global precio
             precio = comparar_precios(saldo,precios)
         else:
-            precio = precios[0]-saldo
-        print(saldo,precios,precio,precio+saldo)    
+            precio = precios[0]-saldo   
         while True:
             indice = random.choice(range(0,len(precios)))
             if precios[indice] == (-precio)+saldo:
                 break
         mensaje = tipo[indice]
-        print(mensaje)
         tmp = saldo
         if saldo>=precio:
             saldo=precio
             if saldo>0:
+                pygame.mixer.music.load('moneda/sonido/monedas_1.mp3')
+                pygame.mixer.music.play()
                 posvx=50
                 posvy=255
             #Animacion imprimir
@@ -237,6 +236,8 @@ def imprimir(args):#argumentos: tipo,idioma
             superficie_rect.topleft = (180,110)
 
             running = True
+            pygame.mixer.music.load('moneda/sonido/printer.mp3')
+            pygame.mixer.music.play()
             while running:
                 marco.fill((255,255,255))
                 marco.set_colorkey((255,255,255))
@@ -291,9 +292,8 @@ def imprimir(args):#argumentos: tipo,idioma
                             running = False
 
                 pygame.display.update()
-            print(saldo)
+            
             #Guardando venta en tabla de ventas
-            actualizar_ventas(mensaje[0],mensaje[1])
             d=datetime.datetime.today()
             d=str(d)[:16]
             dt=d.split()
@@ -342,8 +342,6 @@ def imprimir(args):#argumentos: tipo,idioma
                 else:
                     archivo_venta.write(texto_ventas[i])
             archivo_venta.close()
-            print(run)
-            print (saldo)
             saldo=0
     else:
         pass
@@ -444,6 +442,11 @@ def imprimir_reporte(args): #args():idioma
     texto_imprimido.set_colorkey((255,255,255))
     texto_rect = texto_imprimido.get_rect()
     texto_rect.topleft = (0,0)
+    
+    boton_salida = pygame.image.load('boton_salida.png').convert()
+    boton_salida.set_colorkey((255,255,255))
+    botons_rect = boton_salida.get_rect()
+    botons_rect.topleft = (marco_rect.width -(botons_rect.width+10),0)
 
     texto_archivo = abrir_mensajes()
     mensajes_vendidos = []
@@ -509,7 +512,6 @@ def imprimir_reporte(args): #args():idioma
             
         pygame.display.update()
         clock.tick(60)
-
 #Asignando funcionalidades
 lista_comandos[0].buscar_estado("Ctrñ:").set_funcionalidad(contrasena,[])
 lista_comandos[0].buscar_estado("Apagar").set_funcionalidad(apagar,[])
@@ -533,10 +535,11 @@ while running:
     espacio_monedas.fill((189,189,189))
     espacio_monedas_rect = espacio_monedas.get_rect()
     espacio_monedas_rect.topleft = (10,10)
-    hendija=pygame.Surface((10,90))
-    hendija.fill((0,0,0))
+    hendija=pygame.Surface((100,90))
+    hendija.fill((255,255,255))
+    hendija.set_colorkey((255,255,255))
     hendija_rect=hendija.get_rect()
-    hendija_rect.centerx= 90
+    hendija_rect.centerx= 70
     hendija_rect.centery= 80
     pygame.draw.circle(espacio_monedas,(224,224,224),(75,60),50,0)
     pygame.draw.rect(espacio_monedas,(0,0,0),(70,15,10,90))
@@ -635,9 +638,10 @@ while running:
             mouse_pos = pygame.mouse.get_pos()
             if hendija_rect.collidepoint(mouse_pos):
                 if saldo<80:
-                    moneda.posx,moneda.posy=mouse_pos
+                    pygame.mixer.music.load('moneda/sonido/MONEYWIN.wav')
+                    pygame.mixer.music.play()
+                    moneda.posx,moneda.posy=87,35
                     saldo += moneda.valor
-                    print(saldo)
             if moneda.vuelto_rect.collidepoint(mouse_pos):
                 posvx=50
                 posvy=600
@@ -693,7 +697,10 @@ while running:
                         else:
                             estado_actual = estado_tmp + 1
                     break
-              
+        if event.type == pygame.MOUSEBUTTONUP:
+            if saldo<=80:
+                time.sleep(1.001)
+                moneda.posx,moneda.posy=87,600
     pygame.display.update()
     clock.tick(60)
     
