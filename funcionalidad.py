@@ -1,5 +1,5 @@
 #abrir_mensajes(): abre el archivo mensajes y hace la division de los datos
-def abrir_megit rsnsajes():
+def abrir_mensajes():
     archivo=open("mensajes.txt","r")
     texto_archivo=archivo.read()
     archivo.close() 
