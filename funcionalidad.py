@@ -91,4 +91,71 @@ def reiniciar_ventas():
         else:
             archivo.write(nuevo_texto[i])
     archivo.close()
+
+    texto_mensajes = abrir_mensajes()
+    archivo = open("mensajes.txt",'r+')
+    texto_archivo=archivo.read()
+    texto_archivo = texto_archivo.split('\n')
+    print(texto_mensajes)
+    for i in range(3,len(texto_archivo)-1):
+        print(texto_mensajes[i])
+        mensaje = texto_mensajes[i]
+        nuevo_str  = (mensaje[0]
+                      +'\t'
+                      +mensaje[1]
+                      +'\t'
+                      +mensaje[2]
+                      +'\t\t\t\t\t   '
+                      +mensaje[3]
+                      +'\t'
+                      +'0'
+                      +'\t'
+                      +mensaje[5])
+        texto_archivo[i] = nuevo_str
+    print(texto_archivo)
+    archivo.seek(0,0)
+    largo = len(texto_archivo)
+    for i in range(0,largo):
+        if i != largo-1:
+            archivo.write(texto_archivo[i]+'\n')
+        else:
+            archivo.write(texto_archivo[i])
+    archivo.close()
+
+def actualizar_ventas(tipo,codigo):
+    texto = abrir_mensajes()
+    for i in range(0,len(texto)):
+        if texto[i]:
+            if texto[i][0]==tipo and texto[i][1]==codigo:
+                indice = i
+    archivo = open("mensajes.txt",'r+')
+    texto_archivo=archivo.read()
+    texto_archivo = texto_archivo.split('\n')
+    mensaje = texto[indice]
+    nuevas_ventas = str(int(mensaje[4])+1)
+    nuevo_str  = (mensaje[0]
+                  +'\t'
+                  +mensaje[1]
+                  +'\t'
+                  +mensaje[2]
+                  +'\t\t\t\t\t'
+                  +mensaje[3]
+                  +'\t'
+                  +f'{nuevas_ventas}'
+                  +'\t'
+                  +mensaje[5])
+    texto_archivo[indice] = nuevo_str
+    print(mensaje,texto_archivo[indice],texto_archivo)
+    archivo.seek(0,0)
+    largo = len(texto_archivo)
+    for i in range(0,largo):
+        if i != largo-1:
+            archivo.write(texto_archivo[i]+'\n')
+        else:
+            archivo.write(texto_archivo[i])
+    archivo.close()
+
+
+    
+    
     

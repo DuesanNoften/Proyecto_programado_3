@@ -5,6 +5,7 @@ from Dinero_class import *
 import datetime
 import random
 import time
+import threading
 pygame.init()
 
 #Iniciando clock
@@ -237,6 +238,8 @@ def imprimir(args):#argumentos: tipo
             superficie_rect.topleft = (180,110)
 
             running = True
+            pygame.mixer.music.load('moneda/sonido/printer.mp3')
+            pygame.mixer.music.play()
             while running:
                 marco.fill((255,255,255))
                 marco.set_colorkey((255,255,255))
