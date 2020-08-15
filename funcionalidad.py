@@ -1,8 +1,8 @@
 #abrir_mensajes(): abre el archivo mensajes y hace la division de los datos
-def abrir_mensajes():
+def abrir_megit rsnsajes():
     archivo=open("mensajes.txt","r")
     texto_archivo=archivo.read()
-    archivo.close()
+    archivo.close() 
     texto_archivo=string_remove(texto_archivo,["-"," "])
     texto_separado=texto_archivo.split("\n")
     for i in range(0,len(texto_separado)):
@@ -28,6 +28,7 @@ def string_remove(string,elementos):
         else:
             pass
         i+=1
+        
     return nuevo_str
 
 #string_replace(string,remplazado,remplazador)
@@ -105,7 +106,7 @@ def reiniciar_ventas():
                       +mensaje[1]
                       +'\t'
                       +mensaje[2]
-                      +'\t\t\t\t\t   '
+                      +'\t\t\t\t\t'
                       +mensaje[3]
                       +'\t'
                       +'0'

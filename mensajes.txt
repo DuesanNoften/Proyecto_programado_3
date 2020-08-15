@@ -2,7 +2,7 @@
 Tipo	Codigo	Mensaje						Precio	Ventas	Imagen
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------
 1	1	Indirectas					   20	0	esp/Imagenes/Chistes/chistes1.jpg
-1	2	Buenos_valores					   20	0	esp/Imagenes/Chistes/chistes4.png
+1	2	Buenos_valores					20	1	esp/Imagenes/Chistes/chistes4.png
 1	3	Una_llamada					   20	0	esp/Imagenes/Chistes/chistes5.jpg
 1	4	Vaya_fortuna					   20	0	esp/Imagenes/Chistes/chistes6.png
 1	5	Taladro					   20	0	esp/Imagenes/Chistes/chistes7.png
@@ -27,7 +27,7 @@ Tipo	Codigo	Mensaje						Precio	Ventas	Imagen
 2	14	Una_cuchara>Una_olla					   20	0	esp/Imagenes/Dichos/dicho19.png
 2	15	Mentes					   60	0	esp/Imagenes/Dichos/dicho5.png
 2	16	Buen_puerto					   60	0	esp/Imagenes/Dichos/dicho9.png
-2	17	El_que_enseña					   60	0	esp/Imagenes/Dichos/dicho11.png
+2	17	El_que_enseña					60	1	esp/Imagenes/Dichos/dicho11.png
 2	18	Las_generaciones					   80	0	esp/Imagenes/Dichos/dicho8.png
 2	19	Friccion					   80	0	esp/Imagenes/Dichos/dicho7.jpg
 2	20	Sonrie					   80	0	esp/Imagenes/Dichos/dicho10.png
@@ -38,7 +38,7 @@ Tipo	Codigo	Mensaje						Precio	Ventas	Imagen
 3	5	Fijate					20	1	esp/Imagenes/Consejos/consejo8.png
 3	6	La_fuerza_de_la_lengua					   20	0	esp/Imagenes/Consejos/consejo9.png
 3	7	El_feliz					   20	0	esp/Imagenes/Consejos/consejo10.png
-3	8	La_lucha					   20	0	esp/Imagenes/Consejos/consejo11.png
+3	8	La_lucha					20	1	esp/Imagenes/Consejos/consejo11.png
 3	9	No_se_trata_de					   20	0	esp/Imagenes/Consejos/consejo14.png
 3	10	Se_humilde					   20	0	esp/Imagenes/Consejos/consejo15.jpg
 3	11	Un_amigo					   20	0	esp/Imagenes/Consejos/consejo16.jpg
@@ -101,4 +101,4 @@ Tipo	Codigo	Mensaje						Precio	Ventas	Imagen
 6	18	Don't_criticize					   80	0	eng/img/Tips/tip4.jpg
 6	19	Who_works					   80	0	eng/img/Tips/tip5.jpg
 6	20	Don't_wait					   80	0	eng/img/Tips/tip20.jpg
----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

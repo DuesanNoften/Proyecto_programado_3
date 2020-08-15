@@ -435,11 +435,14 @@ def imprimir_reporte(args): #args():idioma
 
     marco = pygame.Surface((400,200))
     marco_rect = marco.get_rect()
+    marco.fill((255,255,255))
+    marco.set_colorkey((255,255,255))
     marco_rect.midtop = (marco_rect.midtop[0]+30,30)
-    marco.fill((0,0,0))
 
-    texto = pygame.Surface((400,200))
-    texto_rect = texto.get_rect()
+    texto_imprimido = pygame.Surface((400,200))
+    texto_imprimido.fill((255,255,255))
+    texto_imprimido.set_colorkey((255,255,255))
+    texto_rect = texto_imprimido.get_rect()
     texto_rect.topleft = (0,0)
 
     texto_archivo = abrir_mensajes()
@@ -449,13 +452,41 @@ def imprimir_reporte(args): #args():idioma
             if mensaje[4] != '0' and mensaje[4].isnumeric():
                 mensajes_vendidos.append(mensaje)
 
-    texto_imprimir = [['Tipo','Coddigo','Mensaje','Mensajes Vendidos','Monto ventas']]
+    texto_imprimir = [['Tipo','Codigo','Mensaje        ','Vendidos','Monto ventas']]
+    for mensaje in mensajes_vendidos:
+        texto_imprimir.append([mensaje[0],
+                               mensaje[1],
+                               mensaje[2],
+                               mensaje[4],
+                               str(int(mensaje[4])*int(mensaje[3]))])
 
-    print(mensajes_vendidos)
+    pos_y = 0
+    for texto in texto_imprimir:
+        if texto[0].isnumeric():
+            string = ''
+            for i in range(0,len(texto_imprimir[0])):
+                diferencia = len(texto_imprimir[0][i])-len(texto[i])
+                string+=texto[i]
+                for j in range(0,diferencia+1):
+                    string+=' '
+                string+='     '
+        else:
+            string = (texto[0]
+                      +'\t'
+                      +texto[1]
+                      +'\t'
+                      +texto[2]
+                      +'\t'
+                      +texto[3]
+                      +'\t'
+                      +texto[4])
+        crear_texto(string,papel_font,(0,0,0),15,(5,pos_y),'',texto_imprimido)
+        pos_y += 15
 
     running = True
 
     while running:
+        marco.blit(texto_imprimido,texto_rect)
         fondo.blit(marco,marco_rect)
         pantalla.blit(fondo,fondo_rect)
 
