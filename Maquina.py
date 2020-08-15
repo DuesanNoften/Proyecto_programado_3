@@ -189,6 +189,7 @@ def imprimir(args):#argumentos: tipo
                 break
         mensaje = tipo[indice]
         print(mensaje)
+        tmp = saldo
         if saldo>=precio:
             saldo=precio
             #Animacion imprimir
@@ -279,6 +280,7 @@ def imprimir(args):#argumentos: tipo
                 pygame.display.update()
             print(saldo)
             #Guardando venta en tabla de ventas
+            actualizar_ventas(mensaje[0],mensaje[1])
             d=datetime.datetime.today()
             d=str(d)[:16]
             dt=d.split()
@@ -304,10 +306,10 @@ def imprimir(args):#argumentos: tipo
                              +'\t'
                              +mensaje[3]
                              +'\t'
-                             +str(precio+saldo)
+                             +str(tmp)
                              +'\t'
                              +'\t'
-                             +str(saldo))
+                             +str(tmp-int(mensaje[3])))
             no_espacio = True
             for i in range(0,len(texto_ventas)):
                 if not texto_ventas[i]:
