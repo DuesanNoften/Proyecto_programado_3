@@ -490,6 +490,14 @@ def imprimir_reporte(args): #args():idioma
                       +texto[4])
         crear_texto(string,papel_font,(0,0,0),15,(5,pos_y),'',texto_imprimido)
         pos_y += 15
+        if pos_y > texto_imprimido.get_height():
+            tmp = texto_imprimido
+            texto_imprimido = pygame.Surface((400,tmp.get_height()*2))
+            texto_imprimido.fill((255,255,255))
+            texto_imprimido.set_colorkey((255,255,255))
+            texto_rect = texto_imprimido.get_rect()
+            texto_rect.topleft = (0,0)
+            texto_imprimido.blit(tmp,(0,0))
 
     running = True
 
@@ -500,10 +508,23 @@ def imprimir_reporte(args): #args():idioma
 
         for event in pygame.event.get():
             if event.type == pygame.MOUSEBUTTONDOWN:
+                print("Y")
                 pass
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_UP:
+                    print("Y")
+                    x,y = texto_rect.topleft
+                    y-=texto_rect.height
+                    texto_rect.topleft = (x,y)
+                if event.key == pygame.K_DOWN:
+                    print("Y")
+                    x,y = texto_rect.topleft
+                    y+=texto_rect.height
+                    texto_rect.topleft = (x,y)
+           
             
         pygame.display.update()
-        
+        clock.tick(60)
 #Asignando funcionalidades
 lista_comandos[0].buscar_estado("Ctrñ:").set_funcionalidad(contrasena,[])
 lista_comandos[0].buscar_estado("Apagar").set_funcionalidad(apagar,[])
