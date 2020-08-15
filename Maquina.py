@@ -366,7 +366,139 @@ def comparar_menor(x,y):
         return y
     else:
         return x
-                
+    
+#imprimir_reporte(args)
+#E: idioma
+#S: Imprime un reporte de las ventas
+#R: -
+def imprimir_reporte(args): #args():idioma
+    #Animacion imprimir
+    print('Wii')
+    idioma = 'esp'
+    marco = pygame.Surface((260,100))
+    marco.fill((255,255,255))
+    marco.set_colorkey((255,255,255))
+    marco_rect = marco.get_rect()
+    marco_rect.topleft = (20,45)
+    papel = pygame.Surface((260,100))
+    papel.fill((241,238,228))
+    papel_rect = papel.get_rect()
+    papel_y = -marco.get_height()
+    papel_yreal = papel_y
+    papel_rect.topleft = (0,papel_y)
+    if idioma == 'esp':
+        crear_texto("Click aqui",
+        papel_font,
+        (0,0,0),30,
+        (papel_rect.width//2,papel_rect.height//2),
+        'centro',papel)
+    else:
+        crear_texto("Click here",
+        papel_font,
+        (0,0,0),30,
+        (papel_rect.width//2,papel_rect.height//2),
+        'centro',papel)
+    impresora = pygame.Surface((300,170))
+    impresora.fill((189,189,189))
+    pygame.draw.rect(impresora,(0,0,0),(20,35,260,25))
+    superficie_rect = impresora.get_rect()
+    superficie_rect.topleft = (180,110)
+
+    running = True
+    while running:
+        marco.fill((255,255,255))
+        marco.set_colorkey((255,255,255))
+        marco.blit(papel,papel_rect)
+        impresora.blit(marco,marco_rect)
+        pantalla.blit(impresora,superficie_rect)
+
+        if papel_yreal < 0:
+            papel_yreal += 2
+            papel_y = int(papel_yreal)
+            papel_rect.topleft = (0,papel_y)
+        else:
+            pass 
+
+            for event in pygame.event.get():
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    mouse_pos = list(pygame.mouse.get_pos())
+                    mouse_pos[0] -= 180
+                    mouse_pos[1] -= 110
+                    if marco_rect.collidepoint(mouse_pos):
+                        running = False
+                        
+        pygame.display.update()
+        clock.tick(60)
+
+    #Imprimiendo mensaje
+    fondo = pygame.Surface((460,260))
+    fondo.fill((241,238,228))
+    fondo_rect = fondo.get_rect()
+    fondo_rect.topleft = (20,20)
+
+    marco = pygame.Surface((400,200))
+    marco_rect = marco.get_rect()
+    marco.fill((255,255,255))
+    marco.set_colorkey((255,255,255))
+    marco_rect.midtop = (marco_rect.midtop[0]+30,30)
+
+    texto_imprimido = pygame.Surface((400,200))
+    texto_imprimido.fill((255,255,255))
+    texto_imprimido.set_colorkey((255,255,255))
+    texto_rect = texto_imprimido.get_rect()
+    texto_rect.topleft = (0,0)
+
+    texto_archivo = abrir_mensajes()
+    mensajes_vendidos = []
+    for mensaje in texto_archivo:
+        if mensaje:
+            if mensaje[4] != '0' and mensaje[4].isnumeric():
+                mensajes_vendidos.append(mensaje)
+
+    texto_imprimir = [['Tipo','Codigo','Mensaje        ','Vendidos','Monto ventas']]
+    for mensaje in mensajes_vendidos:
+        texto_imprimir.append([mensaje[0],
+                               mensaje[1],
+                               mensaje[2],
+                               mensaje[4],
+                               str(int(mensaje[4])*int(mensaje[3]))])
+
+    pos_y = 0
+    for texto in texto_imprimir:
+        if texto[0].isnumeric():
+            string = ''
+            for i in range(0,len(texto_imprimir[0])):
+                diferencia = len(texto_imprimir[0][i])-len(texto[i])
+                string+=texto[i]
+                for j in range(0,diferencia+1):
+                    string+=' '
+                string+='     '
+        else:
+            string = (texto[0]
+                      +'\t'
+                      +texto[1]
+                      +'\t'
+                      +texto[2]
+                      +'\t'
+                      +texto[3]
+                      +'\t'
+                      +texto[4])
+        crear_texto(string,papel_font,(0,0,0),15,(5,pos_y),'',texto_imprimido)
+        pos_y += 15
+
+    running = True
+
+    while running:
+        marco.blit(texto_imprimido,texto_rect)
+        fondo.blit(marco,marco_rect)
+        pantalla.blit(fondo,fondo_rect)
+
+        for event in pygame.event.get():
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                pass
+            
+        pygame.display.update()
+        
 #Asignando funcionalidades
 lista_comandos[0].buscar_estado("Ctrñ:").set_funcionalidad(contrasena,[])
 lista_comandos[0].buscar_estado("Apagar").set_funcionalidad(apagar,[])
